@@ -1,22 +1,17 @@
 import React, { useEffect, useState } from 'react';
 
-function QScreenLoading({ nextStep }) {
+function QScreenLoading() {
   const [dots, setDots] = useState('');
 
   useEffect(() => {
-    const timer = setTimeout(() => {
-      nextStep();
-    }, 2000);
-
     const dotAnimation = setInterval(() => {
       setDots(prevDots => (prevDots.length < 3 ? prevDots + '.' : ''));
     }, 500);
 
     return () => {
-      clearTimeout(timer);
       clearInterval(dotAnimation);
     };
-  }, [nextStep]);
+  }, []);
 
   return (
     <div className="flex flex-col items-center">

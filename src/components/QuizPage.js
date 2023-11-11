@@ -17,12 +17,13 @@ import 'tailwindcss/tailwind.css';
 const Quiz = () => {
   const [currentStep, setCurrentStep] = useState(1);
   const [isModalOpen, setIsModalOpen] = useState(false);
-  const [apiResponse, setApiResponse] = useState({})
+  const [apiResponse, setApiResponse] = useState({});
+  const [localimageurl, setLocalImageUrl] = useState("rabbits/rabbit_no_female_medium.png");
   const ImageUploader = () => {
     const [uploading, setUploading] = useState(false);
     const [imageDataUrl, setImageDataUrl] = useState('');
   
-    const MAX_SIZE = 1 * 1024 * 1024; // 5MB
+    const MAX_SIZE = 5 * 1024 * 1024; // 5MB
   
     const handleImageChange = (event) => {
       const file = event.target.files[0];
@@ -105,6 +106,39 @@ const Quiz = () => {
     );
   };
   
+  const parseApiDataToImage = (apiData) => {
+
+    const parts = apiData.replace(/\.$/, "").split(', ');
+    let imageurl = ""
+    const glassesOrNo = parts[0]
+    const skintone = parts[1]
+    const gender = parts[2] 
+    if(gender === "female"){
+      var randomNumber = Math.random();
+      var choice = randomNumber < 0.5 ? "cat" : "rabbit";
+      if(choice === "cat"){
+        imageurl = "cats/cat_"+ glassesOrNo + "_female_" + skintone + ".png"
+      } else {
+        imageurl = "rabbits/rabbit_no_female_" + skintone + ".png"
+      }
+    } else {
+      var randomNumber = Math.random();
+      var choice = randomNumber < 0.5 ? "dog" : "rabbit";
+      if(choice === "dog"){
+        imageurl = "dogs/dog_" + glassesOrNo + "_male_" + skintone + ".png"
+      } else {
+        imageurl = "rabbits/rabbit_no_male_" + skintone + ".png"
+      }
+    }
+    console.log(imageurl)
+    if(imageurl === ""){
+      imageurl = "rabbits/rabbit_no_female_medium.png"
+    }
+    //Store imageurl in local storage
+    localStorage.setItem('localimageurl', JSON.stringify(imageurl));
+    nextStep();
+    return imageurl
+  }
   function GetApiData(url) {
   
     nextStep();
@@ -124,7 +158,7 @@ const Quiz = () => {
           max_tokens: 300
         }, {
           headers: {
-            'Authorization': `Bearer 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`, // Replace with your API key
+            'Authorization': `Bearer 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`, // Replace with your API key
             'Content-Type': 'application/json'
           }
         });
@@ -132,7 +166,7 @@ const Quiz = () => {
         setApiResponse(JSON.stringify(response.data.choices[0], null, 2));
         console.log(response.data.choices[0].message.content)
         localStorage.setItem('chatgpt', JSON.stringify(response.data.choices[0].message.content));
-
+        setLocalImageUrl(parseApiDataToImage(response.data.choices[0].message.content));
         console.log(response.data);
       } catch (error) {
         console.error('Error:', error);
@@ -163,9 +197,9 @@ const Quiz = () => {
       case 4:
         return <QScreen4 toggleModal={toggleModal} nextStep={nextStep}/>;
       case 5:
-        return <QScreenLoading nextStep={nextStep}/>;
+        return <QScreenLoading/>;
       case 6:
-        return <QScreen5 nextStep={nextStep} prevStep={prevStep} />;
+        return <QScreen5 nextStep={nextStep} prevStep={prevStep} localimageurl={localimageurl}/>;
       case 7:
         return <QScreen6 nextStep={nextStep} prevStep={prevStep} />;
       case 8:

@@ -1,4 +1,4 @@
-function QScreen5({ nextStep }) {
+function QScreen5({ nextStep, localimageurl }) {
   return (
     <div className="flex flex-col items-center">
       <h2 className="text-3xl md:text-5xl font-black uppercase text-center mb-8 max-w-3xl">
@@ -6,7 +6,7 @@ function QScreen5({ nextStep }) {
       </h2>
       <div className="bg-gray rounded-xl w-full max-h-[50vh]">
         <img
-          src="/locked-avatar-min.png"
+          src={localimageurl}
           className="object-fit h-auto w-auto mx-auto pt-6"
         ></img>
       </div>
