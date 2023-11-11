@@ -4,6 +4,7 @@ import HomePage from './components/HomePage';
 import GamePage from './components/GamePage'; // Your game page component
 import PetPage from './components/PetPage'; // Your pet page component
 import QuizPage from './components/QuizPage'; // Your quiz page component
+import ChallengesPage from './components/challengesPage'; // Your quiz page component
 import QRChallenge from './components/QRChallenge'; // Your QR challenge component
 
 function App() {
@@ -14,7 +15,7 @@ function App() {
           <Route path="/dev" element={<HomePage />} />
           <Route path="/game" element={<GamePage />} />
           <Route path="/pet" element={<PetPage />} />
-          <Route path="/" element={<QuizPage />} />
+          <Route path="/" element={<ChallengesPage />} />
           <Route path="/qr-game" element={<QRChallenge/>} />
           {/* Add more routes as needed */}
         </Routes>
