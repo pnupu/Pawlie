@@ -5,13 +5,14 @@ function QScreenChallenge({nextStep}) {
   
   useEffect(() => {
     // set a timer that checks localStorage jumpScore and sets variable
-    const timer = setTimeout(() => {
+    const timer = setInterval(() => {
+      console.log('This will run after 1 second!');
       if (!canContinue) {
         if(localStorage.getItem('jumpScore')) {
           setCanContinue(true);
         }
       }
-    }, 100);
+    }, 1000);
 
     return () => {
       // clear timer

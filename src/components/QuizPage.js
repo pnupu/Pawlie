@@ -11,6 +11,8 @@ import QScreen7 from "../modules/qscreen7";
 import QScreen8 from "../modules/qscreen8";
 import QScreenLoading from "../modules/qscreenloading";
 import QScreenChallenge from "../modules/qscreenchallenge";
+import QScreenResults from "../modules/qscreenresults";
+
 import 'tailwindcss/tailwind.css';
 
 
@@ -107,8 +109,7 @@ const Quiz = () => {
   };
   
   const parseApiDataToImage = (apiData) => {
-
-    const parts = apiData.replace(/\.$/, "").split(', ');
+    const parts = apiData.toLowerCase().replace(/\.$/, "").split(', ');
     let imageurl = ""
     const glassesOrNo = parts[0] || "no"
     const skintone = parts[1] || "light"
@@ -135,6 +136,32 @@ const Quiz = () => {
     }
     console.log(imageurl)
     if(imageurl === ""){
+      //Generate random
+      // Dog, cat or rabbit
+      randomNumber = Math.random();
+      var glasses = "no"
+      choice = ""
+      var skin = ""
+      var gen = ""
+      if(randomNumber < 0.33) choice = "dog";
+      else if(randomNumber < 0.66) choice = "cat";
+      else choice = "rabbit";
+      var random = Math.random();
+      if(random < 0.33) skin = "light"
+      else if(random < 0.66) skin = "medium"
+      else skin = "dark"
+
+      if(choice !== "rabbit") {
+        randomNumber = Math.random();
+        if(randomNumber < 0.5) glasses = "yes"
+      
+        imageurl = choice + "s/" + choice + "_" + glasses + "_" + gen + "_" + skin + ".png";
+      } else {
+        var gendermath = Math.random();
+        if(gendermath < 0.5) gen = "male"
+        else gen = "female"
+        imageurl = "rabbits/rabbit_no_" + gen + "_" + skin + ".png"
+      }
       imageurl = "rabbits/rabbit_no_female_medium.png"
     }
     //Store imageurl in local storage
@@ -190,7 +217,7 @@ const Quiz = () => {
         nextStep();
       }, 3000);
     }
-    setCurrentStep((prevStep) => (prevStep < 10 ? prevStep + 1 : prevStep));
+    setCurrentStep((prevStep) => (prevStep < 11 ? prevStep + 1 : prevStep));
   };
 
   const prevStep = () => {
@@ -219,6 +246,8 @@ const Quiz = () => {
         return <QScreen8 nextStep={nextStep} prevStep={prevStep} />;
       case 10:
           return <QScreenChallenge nextStep={nextStep} />;
+      case 11:
+          return <QScreenResults nextStep={nextStep}  localimageurl={localimageurl} />;
       default:
         return <QScreen1 nextStep={nextStep} prevStep={prevStep} />;
     }
@@ -233,7 +262,7 @@ const Quiz = () => {
     >
 
         <div className="container mx-auto max-w-5xl">
-        <div className="relative overflow-hidden bg-white rounded-2xl p-4 md:p-16">
+        <div className="relative overflow-hidden bg-white rounded-2xl px-4 py-8 md:p-16">
           {renderScreen()}
         </div>
       </div>
