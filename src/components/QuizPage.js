@@ -161,7 +161,7 @@ const Quiz = () => {
           max_tokens: 300
         }, {
           headers: {
-            'Authorization': `Bearer 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`, // Replace with your API key
+            'Authorization': `Bearer ` + process.env.CHATGPT_API_KEY, // Replace with your API key
             'Content-Type': 'application/json'
           }
         });
