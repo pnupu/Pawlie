@@ -1,7 +1,7 @@
 import React from 'react';
 import { useNavigate } from 'react-router-dom';
 
-function QScreen8() {
+function QScreen8({ nextStep}) {
   let navigate = useNavigate();
 
   const handleStartChallengeClick = () => {
@@ -11,20 +11,19 @@ function QScreen8() {
 
   return (
     <div className="flex flex-col items-center">
-      <h2 className="text-5xl font-black uppercase text-center mb-8 max-w-2xl">
+      <h2 className="text-3xl md:text-5xl font-black uppercase text-center mb-8 max-w-2xl">
         Fitness is Better Together!
       </h2>
-      <img src="/leaderboard.png" alt="Leaderboard" className="max-w-2xl" />
-      <p className="text-xl text-dark-secondary text-center mt-8 max-w-2xl">
+      <img src="/leaderboard.png" className="max-w-2xl w-full"></img>
+      <p className="text-lg md:text-xl text-dark-secondary text-center mt-8 max-w-2xl">
         Join a supportive fitness community where every step counts! Track your
         journey and share in the collective achievements. Together, we turn
         individual efforts into inspiring group milestones!
       </p>
 
       <div className="flex gap-4 items-center mt-8">
-        <button 
-          className="text-lg font-medium text-center px-8 py-3 bg-primary hover:bg-primary-hover rounded-full text-white transition-all"
-          onClick={handleStartChallengeClick}
+        <button className="text-lg font-medium text-center px-8 py-3 bg-primary hover:bg-primary-hover rounded-full text-white transition-all"
+          onClick={() => nextStep()}
         >
           Start a Challenge
         </button>

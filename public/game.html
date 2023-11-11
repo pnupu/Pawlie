@@ -115,6 +115,7 @@
 
         async function setupWebcam() {
             const video = document.getElementById('webcam');
+            console.log(video)
             const stream = await navigator.mediaDevices.getUserMedia({ video: true });
             video.srcObject = stream;
             return new Promise((resolve) => {
@@ -129,7 +130,9 @@
         }
 
         async function main() {
+            console.log("Hoi1")
             const video = await setupWebcam();
+            console.log("Hoi2")
             video.play();
             const canvas = document.getElementById('canvas');
             canvas.width = video.videoWidth;
