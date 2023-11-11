@@ -25,8 +25,13 @@ function QRChallenge() {
   const [intervalId, setIntervalId] = useState(null);
 
   return (
-    <>
+    <div className='flex flex-col '>
+      <h1 className="text-2xl md:text-6xl font-black uppercase text-center mb-6">
+        Scan a QR code to start a challenge
+      </h1>
+      <div className='w-96 mx-auto rounded h-96 max-h-full max-w-full'>
       <QrScanner
+          containerStyle={{borderRadius: 10}}
           onDecode={(result) => {            
             if (currChallenge && currChallenge.end.toString() === result.toString()) {
               let newScore;
@@ -85,10 +90,12 @@ function QRChallenge() {
           }}
           onError={(error) => console.log(error?.message)}
         />
-        {countdown && <div style={{fontSize: 20}}>Countdown: {countdown}</div>}
-        {currChallenge && <div style={{fontSize: 20}}>Current Challenge: {currChallenge.title}</div>}
-        <div style={{fontSize: 20}}>Score: {score}</div>
-      </>
+              </div>
+
+        {countdown && <div className='mx-auto' style={{fontSize: 20}}>Countdown: {countdown}</div>}
+        {currChallenge && <div className='mx-auto' style={{fontSize: 20}}>Current Challenge: {currChallenge.title}</div>}
+        <div className='mx-auto' style={{fontSize: 20}}>Score: {score}</div>
+      </div>
   );
 }
 
