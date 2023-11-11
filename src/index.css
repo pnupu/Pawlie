@@ -16,4 +16,10 @@ code {
   font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
     monospace;
 }
-
+/* In src/index.css or wherever your global styles are */
+@font-face {
+  font-family: 'GT Walsheim Pro Light';
+  src: url('./font/GTWalsheimPro-Light.eot') format('opentype');
+  font-weight: 300;
+  font-style: normal;
+}
