@@ -1,5 +1,25 @@
-function QScreenChallenge() {
-  //TODO: fix the iframe height
+import { useEffect, useState } from "react";
+
+function QScreenChallenge({nextStep}) {
+  const [canContinue, setCanContinue] = useState(false);
+  
+  useEffect(() => {
+    // set a timer that checks localStorage jumpScore and sets variable
+    const timer = setTimeout(() => {
+      if (!canContinue) {
+        if(localStorage.getItem('jumpScore')) {
+          setCanContinue(true);
+        }
+      }
+    }, 100);
+
+    return () => {
+      // clear timer
+      clearInterval(timer);
+    }
+
+  }, [canContinue])
+
   return (
     <div className="flex flex-col items-center">
       <h2 className="text-3xl md:text-5xl font-black uppercase text-center mb-8 max-w-2xl">
@@ -47,8 +67,9 @@ function QScreenChallenge() {
       <div
         style={{
           aspectRatio: "9 / 16",
+          height: "80vh",
         }}
-        className=" bg-neutral rounded-xl w-full max-w-xl my-10"
+        className="overflow-hidden rounded-xl  w-full max-w-xl mt-4 mb-10"
       >
         {/* Back button on the left top corner */}
         <a
@@ -66,21 +87,22 @@ function QScreenChallenge() {
           </svg>
         </a>
         <iframe
+          scrolling="no"
           src="game.html"
           title="Game"
           style={{
+            overflow: "hidden",
             width: "100%",
             height: "100%",
             border: "none"
           }}
         />
       </div>
-
-      <div className="flex gap-4 items-center">
-        <button className="text-lg font-medium text-center px-8 py-3 bg-primary hover:bg-primary-hover rounded-full text-white transition-all">
-          Start a Challenge
-        </button>
-      </div>
+      {canContinue && <button className="text-lg font-medium text-center px-8 py-3 bg-primary hover:bg-primary-hover rounded-full text-white transition-all"
+          onClick={() => nextStep()}
+        >
+          Join the Community!
+        </button>}
     </div>
   );
 }
