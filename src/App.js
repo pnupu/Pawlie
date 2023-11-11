@@ -1,6 +1,8 @@
 import Phone from "./modules/phone";
 import PhoneNav from "./modules/phonenav";
 import CampaignScreen from "./modules/campaignscreen";
+import PawlieScreen from "./modules/pawliescreen";
+import LeaderboardScreen from "./modules/leaderboardscreen";
 
 import QScreen1 from "./modules/qscreen1";
 import QScreen2 from "./modules/qscreen2";
@@ -19,10 +21,25 @@ function App() {
     <div className="App">
       <Phone>
         <div id="main-content" className="grow flex flex-col overflow-y-auto">
-          <CampaignScreen />
+          <LeaderboardScreen />
         </div>
         <PhoneNav />
       </Phone>
+
+      {/* <Phone>
+        <div id="main-content" className="grow flex flex-col overflow-y-auto">
+          <PawlieScreen />
+        </div>
+        <PhoneNav />
+      </Phone> */}
+
+      {/* <Phone>
+        <div id="main-content" className="grow flex flex-col overflow-y-auto">
+          <CampaignScreen />
+        </div>
+        <PhoneNav />
+      </Phone> */}
+
       {/* <Quiz>
         <QScreen1></QScreen1>
         <QScreen2></QScreen2>

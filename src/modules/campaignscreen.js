@@ -2,20 +2,15 @@ import ChallengeCard from "./ChallengeCard";
 
 function CampaignScreen() {
   return (
-    // <div className="flex flex-col p-4 md:p-8 overflow-y-auto grow">
-    //   <h1 className="mb-8 text-2xl font-bold uppercase sticky top-0">
-    //     Your Campaign
-    //   </h1>
-    //   <div className="flex flex-col gap-3 grow bg-black h-[2000px] w-full overflow-y-auto">
-    //     <div id="challenge button" className=""></div>
-    //   </div>
-    // </div>
-
     <div className="flex-grow flex flex-col overflow-y-auto p-6 md:p-8">
       <h1 className="text-2xl font-bold uppercase mb-8">Your Campaign</h1>
 
       <div id="content" className="flex flex-col gap-5 flex-grow ">
-        <ChallengeCard type="completed" challengeName="Challenge 1" />
+        <ChallengeCard
+          type="completed"
+          onStart={() => console.log("Challenge started!")}
+          challengeName="Challenge 1"
+        />
 
         <ChallengeCard
           type="active"
