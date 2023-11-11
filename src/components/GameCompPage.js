@@ -26,7 +26,7 @@ function GameCompPage() {
         </a>
         <iframe
         scrolling="no"
-          src="game.html"
+          src="gameComp.html"
           title="Game"
           style={{
             width: "100%",
