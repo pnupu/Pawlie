@@ -146,7 +146,6 @@ const Quiz = () => {
   function GetApiData(url) {
     console.log(url)
     nextStep();
-    console.log(process.env)
     const sendImageToOpenAI = async () => {
       try {
         const response = await axios.post('https://api.openai.com/v1/chat/completions', {
@@ -163,7 +162,7 @@ const Quiz = () => {
           max_tokens: 300
         }, {
           headers: {
-            'Authorization': `Bearer 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`, // Replace with your API key
+            'Authorization': `Bearer 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`, // Replace with your API key
             'Content-Type': 'application/json'
           }
         });
