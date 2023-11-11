@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import axios from 'axios';
 import './quiz.css';
 import QScreen1 from "../modules/qscreen1";
@@ -110,12 +110,14 @@ const Quiz = () => {
 
     const parts = apiData.replace(/\.$/, "").split(', ');
     let imageurl = ""
-    const glassesOrNo = parts[0]
-    const skintone = parts[1]
-    const gender = parts[2] 
+    const glassesOrNo = parts[0] || "no"
+    const skintone = parts[1] || "light"
+    const gender = parts[2] || "male"
     if(gender === "female"){
       var randomNumber = Math.random();
+
       var choice = randomNumber < 0.5 ? "cat" : "rabbit";
+      if(glassesOrNo === "yes") choice = "cat"
       if(choice === "cat"){
         imageurl = "cats/cat_"+ glassesOrNo + "_female_" + skintone + ".png"
       } else {
@@ -124,6 +126,7 @@ const Quiz = () => {
     } else {
       var randomNumber = Math.random();
       var choice = randomNumber < 0.5 ? "dog" : "rabbit";
+      if(glassesOrNo === "yes") choice = "dog"
       if(choice === "dog"){
         imageurl = "dogs/dog_" + glassesOrNo + "_male_" + skintone + ".png"
       } else {
@@ -136,12 +139,14 @@ const Quiz = () => {
     }
     //Store imageurl in local storage
     localStorage.setItem('localimageurl', JSON.stringify(imageurl));
+    console.log(imageurl)
     nextStep();
     return imageurl
   }
   function GetApiData(url) {
-  
+    console.log(url)
     nextStep();
+    console.log(process.env)
     const sendImageToOpenAI = async () => {
       try {
         const response = await axios.post('https://api.openai.com/v1/chat/completions', {
@@ -158,7 +163,7 @@ const Quiz = () => {
           max_tokens: 300
         }, {
           headers: {
-            'Authorization': `Bearer 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`, // Replace with your API key
+            'Authorization': `Bearer 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`, // Replace with your API key
             'Content-Type': 'application/json'
           }
         });
@@ -170,6 +175,7 @@ const Quiz = () => {
         console.log(response.data);
       } catch (error) {
         console.error('Error:', error);
+        parseApiDataToImage("");
       }
     };
     sendImageToOpenAI();
@@ -178,7 +184,14 @@ const Quiz = () => {
   const toggleModal = () => {
     setIsModalOpen(!isModalOpen);
   };
-  const nextStep = () => {
+
+
+  const nextStep = (skip) => {
+    if(currentStep === 4 && skip === true){
+      setTimeout(() => {
+        nextStep();
+      }, 3000);
+    }
     setCurrentStep((prevStep) => (prevStep < 10 ? prevStep + 1 : prevStep));
   };
 
@@ -197,7 +210,7 @@ const Quiz = () => {
       case 4:
         return <QScreen4 toggleModal={toggleModal} nextStep={nextStep}/>;
       case 5:
-        return <QScreenLoading/>;
+        return <QScreenLoading nextStep={nextStep}/>;
       case 6:
         return <QScreen5 nextStep={nextStep} prevStep={prevStep} localimageurl={localimageurl}/>;
       case 7:

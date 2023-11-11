@@ -4,6 +4,7 @@ function QScreenLoading() {
   const [dots, setDots] = useState('');
 
   useEffect(() => {
+
     const dotAnimation = setInterval(() => {
       setDots(prevDots => (prevDots.length < 3 ? prevDots + '.' : ''));
     }, 500);

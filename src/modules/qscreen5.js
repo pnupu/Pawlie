@@ -4,10 +4,12 @@ function QScreen5({ nextStep, localimageurl }) {
       <h2 className="text-3xl md:text-5xl font-black uppercase text-center mb-8 max-w-3xl">
         Meet your personalised Pawlie!
       </h2>
-      <div className="bg-gray rounded-xl w-full max-h-[50vh]">
+      <div className="rounded-xl w-full max-h-[70vh]">
         <img
+        // Add max height and width to prevent image from overflowing
           src={localimageurl}
-          className="object-fit h-auto w-auto mx-auto pt-6"
+          className="object-fit h-auto w-auto mx-auto pt-6 max-h-[70vh]"
+
         ></img>
       </div>
       <p className="text-lg md:text-xl text-dark-secondary text-center my-8 max-w-xl">

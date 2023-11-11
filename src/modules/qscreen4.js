@@ -1,4 +1,4 @@
-function QScreen4({ nextStep, toggleModal }) {
+function QScreen4({ nextStep, toggleModal, setSkip }) {
   return (
     <div className="flex flex-col items-center">
       <h2 className="text-3xl md:text-5xl font-black uppercase text-center mb-2 max-w-xl">
@@ -19,7 +19,7 @@ function QScreen4({ nextStep, toggleModal }) {
           ></img>
         </div>
         <div className="overflow-hidden relative rounded-xl bg-[#F4F8FF] min-h flex flex-col items-center pt-12 min-h-[400px]">
-          <button className="text-lg font-medium text-center px-8 py-3 bg-neutral hover:bg-neutral-hover rounded-full text-dark transition-all" onClick={() => nextStep()}>
+          <button className="text-lg font-medium text-center px-8 py-3 bg-neutral hover:bg-neutral-hover rounded-full text-dark transition-all" onClick={() => nextStep(true)}>
             Generate automatically
           </button>
           <img
