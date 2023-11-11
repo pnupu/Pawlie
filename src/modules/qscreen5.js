@@ -4,10 +4,10 @@ function QScreen5() {
       <h2 className="text-3xl md:text-5xl font-black uppercase text-center mb-8 max-w-3xl">
         Meet your personalised Pawlie!
       </h2>
-      <div className="bg-gray rounded-xl w-full max-h-[50vh]">
+      <div id="pawlie" className="relative p-6 max-w-full mx-auto">
         <img
-          src="/locked-avatar-min.png"
-          className="object-fit h-auto w-auto mx-auto pt-6"
+          className="aspect-square object-cover max-w-sm w-full rounded-2xl"
+          src="/pawlie-cover-2-min.jpg "
         ></img>
       </div>
       <p className="text-lg md:text-xl text-dark-secondary text-center my-8 max-w-xl">

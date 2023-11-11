@@ -1,4 +1,4 @@
-function Quiz({ children }) {
+function Phone({ children }) {
   return (
     <div
       style={{
@@ -6,8 +6,8 @@ function Quiz({ children }) {
       }}
       className="min-h-screen p-3 md:p-4 flex flex-col justify-center"
     >
-      <div className="container mx-auto max-w-5xl">
-        <div className="relative overflow-hidden bg-white rounded-2xl px-4 py-8 md:p-16">
+      <div className="container mx-auto max-w-[400px] w-full md:w-[400px]">
+        <div className="relative overflow-hidden bg-white rounded-2xl h-[700px] max-h-full flex flex-col">
           {children}
         </div>
       </div>
@@ -15,4 +15,4 @@ function Quiz({ children }) {
   );
 }
 
-export default Quiz;
+export default Phone;

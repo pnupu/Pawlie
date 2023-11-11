@@ -1,3 +1,5 @@
+import Phone from "./modules/phone";
+import PhoneNav from "./modules/phonenav";
 import QScreen1 from "./modules/qscreen1";
 import QScreen2 from "./modules/qscreen2";
 import QScreen3 from "./modules/qscreen3";
@@ -8,10 +10,15 @@ import QScreen7 from "./modules/qscreen7";
 import QScreen8 from "./modules/qscreen8";
 import QScreenChallenge from "./modules/qscreenchallenge";
 import QScreenLoading from "./modules/qscreenloading";
+import QScreenResults from "./modules/qscreenresults";
 import Quiz from "./modules/quiz";
 function App() {
   return (
     <div className="App">
+      {/* <Phone>
+        <div className="grow"></div>
+        <PhoneNav />
+      </Phone> */}
       <Quiz>
         <QScreen1></QScreen1>
         <QScreen2></QScreen2>
@@ -22,7 +29,7 @@ function App() {
         <QScreen6></QScreen6>
         <QScreen7></QScreen7>
         <QScreen8></QScreen8>
-        <QScreenChallenge></QScreenChallenge>
+        <QScreenResults></QScreenResults>
       </Quiz>
     </div>
   );
