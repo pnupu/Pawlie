@@ -1,6 +1,6 @@
 function PhoneNav() {
   return (
-    <div className="flex justify-center gap-3 items-center py-2 border-t border-neutral-hover">
+    <div className="flex justify-center gap-3 items-center py-2 border-t border-neutral-hover hei">
       <button
         id="active"
         className=" h-12 w-12 flex items-center justify-center bg-[#EAF2FF] hover:bg-[#D6E5FF] rounded-lg text-white transition-all"

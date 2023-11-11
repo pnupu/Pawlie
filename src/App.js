@@ -1,5 +1,7 @@
 import Phone from "./modules/phone";
 import PhoneNav from "./modules/phonenav";
+import CampaignScreen from "./modules/campaignscreen";
+
 import QScreen1 from "./modules/qscreen1";
 import QScreen2 from "./modules/qscreen2";
 import QScreen3 from "./modules/qscreen3";
@@ -15,11 +17,13 @@ import Quiz from "./modules/quiz";
 function App() {
   return (
     <div className="App">
-      {/* <Phone>
-        <div className="grow"></div>
+      <Phone>
+        <div id="main-content" className="grow flex flex-col overflow-y-auto">
+          <CampaignScreen />
+        </div>
         <PhoneNav />
-      </Phone> */}
-      <Quiz>
+      </Phone>
+      {/* <Quiz>
         <QScreen1></QScreen1>
         <QScreen2></QScreen2>
         <QScreen3></QScreen3>
@@ -30,7 +34,7 @@ function App() {
         <QScreen7></QScreen7>
         <QScreen8></QScreen8>
         <QScreenResults></QScreenResults>
-      </Quiz>
+      </Quiz> */}
     </div>
   );
 }
