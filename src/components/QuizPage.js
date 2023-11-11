@@ -145,6 +145,7 @@ const Quiz = () => {
   }
   function GetApiData(url) {
     nextStep();
+    
     const sendImageToOpenAI = async () => {
       try {
         const response = await axios.post('https://api.openai.com/v1/chat/completions', {
