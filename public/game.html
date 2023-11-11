@@ -1,0 +1,399 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.1/css/all.min.css">
+    <title>Webcam Game</title>
+    <style>
+        #video-container {
+        height: vh;
+        aspect-ratio: 9/16;
+        position: relative;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+    }
+        #webcam {
+                        position: absolute;
+            display: none;
+        /* Adjust height and width to ensure it covers the container */
+        min-width: 100%;
+        min-height: 100%;
+        }
+
+        #canvas {
+            object-fit: cover;
+            background-color: white;
+            border-radius: 10px;
+            height: 90%;
+            width: 100%;
+            max-width: 100%;
+            -webkit-transform: scaleX(-1);
+            transform: scaleX(-1);
+        }
+
+        .primary-button {
+            display: inline-flex;
+            gap: 2px;
+            align-items: center;
+            justify-content: center;
+            white-space: nowrap;
+            max-width: 300px;
+            font-family: 'Inter', sans-serif; /* Replace with your font */
+            border-radius: 9999px; /* represents 'rounded-full' */
+            font-size: 1rem; /* represents 'text-sm' */
+            font-weight: 500; /* represents 'font-medium' */
+            padding: 0.5rem 1rem; /* default size 'sm' */
+            background-color: #6941c6; /* Example color, replace with your brand color */
+            color: white; /* Example color, replace with appropriate color */
+            transition: all 0.2s ease-in-out;
+            outline: none;
+            border: 2px solid transparent; /* Transparent border to maintain layout */
+        }
+
+        .primary-button:hover {
+            background-color: #53389e; /* Darker shade for hover, replace as needed */
+        } 
+
+        .primary-button:focus-visible {
+            outline: 2px solid #53389e; /* Focus ring color, adjust as needed */
+        }
+
+        .primary-button:disabled {
+            pointer-events: none;
+            opacity: 0.5;
+        }
+
+        .countdown-container {
+            width: 100%; /* Full width of the container */
+            display: none;
+            width: 450px;
+            max-width: 100%;
+            background-color: #e0e0e0; /* Light grey background */
+            padding: 3px;
+            box-sizing: border-box;
+            border-radius: 5px; /* Slightly rounded corners */
+        }
+
+        .countdown-bar {
+            height: 20px; /* Height of the bar */
+            background-color: #9e77ed; /* Green color */
+            width: 100%; /* Full width to start with */
+            border-radius: 5px; /* Slightly rounded corners */
+            transition: width 1s linear; /* Smooth transition for width change */
+        }
+    </style>
+</head>
+
+<body style="background-color:#F4F6FA;">
+    <div style="display: flex; height: 95vh; flex-direction: column; justify-content: center; align-items: center; gap: 10px;">
+          <div id="video-container">
+
+                <video id="webcam" autoplay></video>
+
+                <canvas id="canvas">
+                
+                </canvas>
+            </div>
+        <div id="countdownContainer" class="countdown-container">
+            <div class="countdown-bar" id="countdown-bar"></div>
+        </div>
+        <div id="endScreen" style="display: none; text-align: center;">
+        </div>
+        <button class="primary-button" id="startButton">Start Game</button>
+        
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/@tensorflow/tfjs"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@tensorflow-models/body-pix"></script>
+    <script>
+        const gameLength = 30; // 30 seconds for the game
+        let score = 0;
+        let currentPreset = null; // Global variable to store current preset
+        let isChangingPreset = false; // Flag to check if preset is changing
+        let delayActive = false; // Flag to indicate if the delay is currently active
+        let gameActive = true; // Flag to check if the game is active
+        let delay = 1000; // 1 second delay
+        let lastPresetIndex = null; // Global variable to store the last move's index
+        let animationFrameId; // Declare this at the top of your script
+
+
+        async function setupWebcam() {
+            const video = document.getElementById('webcam');
+            const stream = await navigator.mediaDevices.getUserMedia({ video: true });
+            video.srcObject = stream;
+
+            return new Promise((resolve) => {
+                video.onloadedmetadata = () => {
+                    // const canvas = document.getElementById('canvas');
+                    // canvas.width = video.videoWidth;
+                    // canvas.height = video.videoHeight;
+                    resolve(video);
+                };
+            });
+        }
+
+        async function loadBodyPix() {
+            return await bodyPix.load();
+        }
+
+        async function main() {
+            const video = await setupWebcam();
+            video.play();
+            const canvas = document.getElementById('canvas');
+
+            canvas.width = video.videoWidth;
+            canvas.height = video.videoHeight;
+            const ctx = canvas.getContext('2d');
+            
+            const net = await loadBodyPix();
+
+            document.getElementById('startButton').addEventListener('click', () => {
+                startGame(net, video, canvas, ctx);
+            });
+        }
+
+        function startGame(net, video, canvas, ctx) {
+            document.getElementById('countdownContainer').style.display = 'block';
+            const countdownBar = document.getElementById('countdown-bar');
+            // Change countdown display to block
+            let timeLeft = gameLength; // Total time in seconds
+            let originalWidth = 100; // Original width in percentage
+
+            const countdownInterval = setInterval(() => {
+                timeLeft--;
+                let newWidth = (timeLeft / gameLength) * 100; // Calculate new width as a percentage
+                countdownBar.style.width = newWidth + '%'; // Apply new width
+
+                if (timeLeft <= 0) {
+                    clearInterval(countdownInterval); // Clear interval if time is up
+                    countdownBar.style.width = '0%'; // Set width to 0%
+                    endGame(ctx, score, canvas);
+                }
+            }, 1000); // Update every second
+
+            // Hide the start button
+            console.log("start game")
+            document.getElementById('startButton').style.display = 'none';
+
+            // Start the game detection
+            detect(net, video, canvas, ctx);
+        }
+        function isOutside(data, rect) {
+            let isOutside = true;
+            let empty = true;
+            
+            for (let i = 0; i < data.length; i++) {
+                if (data[i] == 1) {
+                    empty = false;
+                    break;
+                }
+            }
+            // if all data[i] == 0, then it is inside, otherwise people can trick it.
+            if (empty) {
+                return false;
+            }
+
+            // Simple algorithm to check if the person pixels overlap with rectangle pixels.
+            for (let i = 0; i < data.length; i++) {
+                if (data[i] == 1) {
+                    let x = i % 640;
+                    let y = Math.floor(i / 640);
+
+                    for (let j = 0; j < rect.length; j++) {
+                        let { x: rectX, y: rectY, width: rectWidth, height: rectHeight } = rect[j];
+                        
+
+                        if (isInsideRectangle(x, y, rectX, rectY, rectWidth, rectHeight)) {
+                            isOutside = false;
+                            break;
+                        }
+                    }
+                }
+            }
+
+            return isOutside;
+        }
+
+        // Method returns true if the point (x, y) is inside the rectangle.
+        function isInsideRectangle(x, y, rectX, rectY, rectWidth, rectHeight) {
+            return x >= rectX && x <= rectX + rectWidth && y >= rectY && y < rectY + rectHeight;
+        }
+
+        // Method returns a random rectangle from the presets.
+        function getRectangle(video, canvas, ctx) {
+            presets = [
+                [ // duck
+                    { x: 0, y: 0, width: canvas.width, height: canvas.height / 4 }
+                ],
+                [ // jump
+                    { x: 0, y: canvas.height - canvas.height / 4, width: canvas.width, height: canvas.height / 4 }
+                ],
+                [ // left
+                    { x: 0, y: 0, width: canvas.width / 2, height: canvas.height }
+                ],
+                [ // right
+                   { x: canvas.width / 2, y: 0, width: canvas.width / 2, height: canvas.height }
+                ],
+                [
+                    { x: 0, y: 0, width: canvas.width, height: canvas.height / 2 }, // top left
+                    { x: canvas.width / 2, y: canvas.height / 2, width: canvas.width / 2, height: canvas.height / 2 } // bottom right
+                ],
+                [
+                    { x: 0, y: 0, width: canvas.width, height: canvas.height / 2 }, // top right
+                    { x: 0, y: canvas.height / 2, width: canvas.width / 2, height: canvas.height / 2 } // bottom left
+                ]
+            ]
+
+            // randomly sample from presets
+            let randomIndex;
+            do {
+                randomIndex = Math.floor(Math.random() * presets.length);
+            } while (randomIndex === lastPresetIndex); // Repeat until a new, different move is selected
+            
+            lastPresetIndex = randomIndex; // Update the last move index
+            return presets[randomIndex];
+        }
+
+        async function detect(net, video, canvas, ctx) {
+            const segmentation = await net.segmentPerson(video);
+            const coloredPartImage = bodyPix.toColoredPartMask(segmentation);
+            
+            const opacity = 0;
+            const maskBlurAmount = 0;
+            const flipHorizontal = false;
+            
+            ctx.drawImage(video, 0, 0, canvas.width, canvas.height);
+
+            if (!currentPreset) {
+                currentPreset = getRectangle(video, canvas, ctx);
+            }
+            
+            ctx.globalAlpha = 0.7;
+            for (let i = 0; i < currentPreset.length; i++) {
+                const { x, y, width, height } = currentPreset[i];
+                ctx.fillStyle = isChangingPreset ? '#98FB98' : '#FF6961';
+                ctx.fillRect(x, y, width, height);
+            }
+            
+            ctx.globalAlpha = 1;
+
+            drawScore(ctx, score, canvas);
+
+            const outside = isOutside(segmentation.data, currentPreset);
+
+            // Check if status element is defined
+            if (outside) {                
+                isChangingPreset = true;
+                // Change preset after a delay and increase score immediately
+                // Modify this if statement to adjust behavior after user correctly moves out of the rectangle
+                if (!delayActive) {
+                    delayActive = true;
+                    score++;
+                    setTimeout(() => changePreset(video, canvas, ctx), delay);
+                }
+            }
+
+            if (gameActive) {
+                requestAnimationFrame(() => detect(net, video, canvas, ctx));
+            }
+        }
+
+        function changePreset(video, canvas, ctx) {
+            currentPreset = getRectangle(video, canvas, ctx);
+            isChangingPreset = false; // Reset the flag
+            delayActive = false; // Reset the delay flag
+        }
+
+        function drawScore(ctx, score, canvas) {
+                ctx.save(); // Save the current state of the context
+                ctx.scale(-1, 1); // Flip context horizontally
+
+                // Adjust text drawing position since the context is flipped
+                const text = score.toString();
+                ctx.font = '40px Ambit'; // You can change the font size and style as needed
+                ctx.fillStyle = 'white'; // Set the text color
+                const textWidth = ctx.measureText(text).width;
+                const x = -(canvas.width + textWidth) / 2; // Negative because context is flipped
+                const y = 50; // You can adjust the y coordinate as needed
+
+                ctx.fillText(text, x, y); // Draw the centered text
+
+                ctx.restore(); // Restore the original state of the context
+
+        }
+
+        function endGame(ctx, score, canvas) {
+            console.log('Ending game'); // Log to confirm this function is called
+            gameActive = false; // Stop the game loop
+
+            // Ensure the canvas is visible
+            canvas.style.display = 'block';
+
+            // Call the function to show the end screen
+            setTimeout(() => {
+                showEndScreen(ctx, score, canvas);
+            }, 100);        
+        }
+
+        function showEndScreen(ctx, score, canvas) {
+            // Clear canvas and reset transformations
+            ctx.clearRect(0, 0, canvas.width, canvas.height);
+            ctx.setTransform(1, 0, 0, 1, 0, 0);
+
+            // Draw the end screen background over the entire canvas
+            ctx.fillStyle = '#F4F6FA';
+            ctx.fillRect(0, 0, canvas.width, canvas.height);
+
+            // Save the context's state
+            ctx.save();
+
+            // Translate and scale to flip the context horizontally
+            ctx.translate(canvas.width, 0);
+            ctx.scale(-1, 1);
+
+            // Draw the score text, which will now be flipped back to normal
+            ctx.fillStyle = 'black';
+            ctx.font = '48px Arial';
+            ctx.textAlign = 'center';
+            ctx.fillText(`Your score: ${score}`, canvas.width / 2, canvas.height / 2);
+
+            // Restore the context's state
+            ctx.restore();
+
+            // Draw the stars without flipping
+            drawStars(ctx, score, canvas);
+        }
+
+
+        function drawStars(ctx, score, canvas) {
+            const stars = calculateStars(score);
+            const fullStar = String.fromCharCode(0x2605); // Unicode for black star
+            const emptyStar = String.fromCharCode(0x2606); // Unicode for white star
+
+            ctx.font = '64px Arial'; // Use a font that supports the star character
+            ctx.fillStyle = 'gold';
+            ctx.textAlign = 'center';
+
+            // Draw stars horizontally centered
+            for (let i = 0; i < 3; i++) {
+                // Choose full or empty star based on rating
+                ctx.fillText(i < stars ? fullStar : emptyStar, (canvas.width / 2) - 64 + (i * 64), canvas.height / 2 + 100);
+            }
+        }
+
+        function calculateStars(score) {
+            // Define the score thresholds for stars
+            if (score >= 10) return 3;
+            if (score >= 5) return 2;
+            if (score >= 1) return 1;
+            return 0;
+        }
+
+        main();
+    </script>
+</body>
+
+</html>

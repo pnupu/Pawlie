@@ -1,0 +1,97 @@
+#video-container {
+    height: vh;
+    aspect-ratio: 9/16;
+    position: relative;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+  
+  #webcam {
+    position: absolute;
+    display: none;
+    /* Adjust height and width to ensure it covers the container */
+    min-width: 100%;
+    min-height: 100%;
+  }
+  
+  #canvas {
+    object-fit: cover;
+    background-color: white;
+    border-radius: 10px;
+    height: 100%;
+    width: 100%;
+    max-width: 100%;
+    -webkit-transform: scaleX(-1);
+    transform: scaleX(-1);
+  }
+  
+  .primary-button {
+    display: inline-flex;
+    gap: 2px;
+    align-items: center;
+    justify-content: center;
+    white-space: nowrap;
+    max-width: 300px;
+    font-family: 'Inter', sans-serif; /* Replace with your font */
+    border-radius: 9999px; /* represents 'rounded-full' */
+    font-size: 1rem; /* represents 'text-sm' */
+    font-weight: 500; /* represents 'font-medium' */
+    padding: 0.5rem 1rem; /* default size 'sm' */
+    background-color: #6941c6; /* Example color, replace with your brand color */
+    color: white; /* Example color, replace with appropriate color */
+    transition: all 0.2s ease-in-out;
+    outline: none;
+    border: 2px solid transparent; /* Transparent border to maintain layout */
+  }
+  
+  .primary-button:hover {
+    background-color: #53389e; /* Darker shade for hover, replace as needed */
+  }
+  
+  .primary-button:focus-visible {
+    outline: 2px solid #53389e; /* Focus ring color, adjust as needed */
+  }
+  
+  .primary-button:disabled {
+    pointer-events: none;
+    opacity: 0.5;
+  }
+  
+  .countdown-container {
+    width: 100%; /* Full width of the container */
+    display: none;
+    width: 450px;
+    max-width: 100%;
+    background-color: #e0e0e0; /* Light grey background */
+    padding: 3px;
+    box-sizing: border-box;
+    border-radius: 5px; /* Slightly rounded corners */
+  }
+  
+  .countdown-bar {
+    height: 20px; /* Height of the bar */
+    background-color: #9e77ed; /* Green color */
+    width: 100%; /* Full width to start with */
+    border-radius: 5px; /* Slightly rounded corners */
+    transition: width 1s linear; /* Smooth transition for width change */
+  }
+  
+  body {
+    background-color: #F4F6FA;
+  }
+  
+  .webcam-game-container {
+    display: flex; 
+    height: 100vh; 
+    flex-direction: column; 
+    justify-content: center; 
+    align-items: center; 
+    gap: 10px;
+  }
+  
+  .end-screen {
+    display: none; 
+    text-align: center;
+  }
+  

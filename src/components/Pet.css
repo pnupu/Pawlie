@@ -1,0 +1,15 @@
+.video-container {
+    position: relative;
+    overflow: hidden; /* To handle the zoomed-in video overflowing */
+  }
+  
+  #myVideo {
+    transition: transform 0.25s ease; /* Smooth transition for zoom effect */
+    width: 50%;
+    height: auto;
+  }
+  
+  #myVideo.zoomed {
+    transform: scale(1.5); /* Adjust scale as needed */
+  }
+  
