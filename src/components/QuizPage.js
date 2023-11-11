@@ -144,7 +144,6 @@ const Quiz = () => {
     return imageurl
   }
   function GetApiData(url) {
-    console.log(url)
     nextStep();
     const sendImageToOpenAI = async () => {
       try {
