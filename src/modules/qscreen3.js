@@ -1,11 +1,11 @@
 function QScreen3() {
   return (
     <div className="flex flex-col items-center">
-      <h2 className="text-5xl font-black uppercase text-center mb-2 max-w-3xl">
+      <h2 className="text-3xl md:text-5xl font-black uppercase text-center mb-2 max-w-3xl">
         Meet Pawlie, your dedicated fitness companion!
       </h2>
       <img src="/pawlie-cover-2-min.jpg"></img>
-      <p className="text-xl text-dark-secondary text-center mt-6 max-w-xl">
+      <p className="text-lg md:text-xl text-dark-secondary text-center mt-6 max-w-xl">
         Create your companion, overcome fitness challenges, and engage in a
         motivating community!
       </p>

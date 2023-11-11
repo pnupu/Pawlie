@@ -1,11 +1,11 @@
 function QScreen6() {
   return (
     <div className="flex flex-col items-center">
-      <h2 className="text-5xl font-black uppercase text-center mb-8 max-w-3xl">
+      <h2 className="text-3xl md:text-5xl font-black uppercase text-center mb-8 max-w-3xl">
         Grow with Pawlie!
       </h2>
       <img src="/levels-min.jpg"></img>
-      <p className="text-xl text-dark-secondary text-center mt-8 max-w-2xl">
+      <p className="text-lg md:text-xl text-dark-secondary text-center mt-8 max-w-2xl">
         Every step in your fitness journey empowers Pawlie. Watch as Pawlie
         gains new skills and transformations that reflect your own progress!
       </p>

@@ -6,6 +6,7 @@ import QScreen5 from "./modules/qscreen5";
 import QScreen6 from "./modules/qscreen6";
 import QScreen7 from "./modules/qscreen7";
 import QScreen8 from "./modules/qscreen8";
+import QScreenChallenge from "./modules/qscreenchallenge";
 import QScreenLoading from "./modules/qscreenloading";
 import Quiz from "./modules/quiz";
 function App() {
@@ -21,6 +22,7 @@ function App() {
         <QScreen6></QScreen6>
         <QScreen7></QScreen7>
         <QScreen8></QScreen8>
+        <QScreenChallenge></QScreenChallenge>
       </Quiz>
     </div>
   );

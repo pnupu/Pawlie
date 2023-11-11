@@ -36,11 +36,11 @@ function QScreen2() {
   };
   return (
     <div className="flex flex-col items-center">
-      <h2 className="text-5xl font-black uppercase text-center mb-6 max-w-4xl">
+      <h2 className="text-3xl md:text-5xl font-black uppercase text-center mb-6 max-w-4xl">
         What's your biggest challenge in staying active?
       </h2>
 
-      <div className="flex gap-4 mb-8">
+      <div className="flex flex-wrap gap-4 mb-8 justify-center">
         <div
           style={isActiveFirst ? activeStyle : inactiveStyle}
           onClick={toggleActiveFirst}

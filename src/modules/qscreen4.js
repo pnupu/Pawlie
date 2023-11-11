@@ -1,10 +1,10 @@
 function QScreen4() {
   return (
     <div className="flex flex-col items-center">
-      <h2 className="text-5xl font-black uppercase text-center mb-2 max-w-xl">
+      <h2 className="text-3xl md:text-5xl font-black uppercase text-center mb-2 max-w-xl">
         Now, Let’s Bring Your Pawlie to Life!
       </h2>
-      <p className="text-xl text-dark-secondary text-center mt-6 mb-8 max-w-md">
+      <p className="text-lg md:text-xl text-dark-secondary text-center mt-6 mb-8 max-w-md">
         Snap a photo, and we'll magically create a Pawlie that mirrors your
         style!
       </p>

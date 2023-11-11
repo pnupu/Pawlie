@@ -1,11 +1,11 @@
 function QScreen8() {
   return (
     <div className="flex flex-col items-center">
-      <h2 className="text-5xl font-black uppercase text-center mb-8 max-w-2xl">
+      <h2 className="text-3xl md:text-5xl font-black uppercase text-center mb-8 max-w-2xl">
         Fitness is Better Together!
       </h2>
-      <img src="/leaderboard.png" className="max-w-2xl"></img>
-      <p className="text-xl text-dark-secondary text-center mt-8 max-w-2xl">
+      <img src="/leaderboard.png" className="max-w-2xl w-full"></img>
+      <p className="text-lg md:text-xl text-dark-secondary text-center mt-8 max-w-2xl">
         Join a supportive fitness community where every step counts! Track your
         journey and share in the collective achievements. Together, we turn
         individual efforts into inspiring group milestones!
