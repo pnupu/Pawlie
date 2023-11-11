@@ -4,7 +4,7 @@ function GamePage() {
         {/* Back button on the left top corner */}
         <a
           href="/"
-          className="absolute left-0 top-0 m-4 p-2 rounded-full bg-gray-200"
+          className="absolute left-0 top-0 m-4 p-2 rounded-full"
         >
           <svg
             xmlns="http://www.w3.org/2000/svg"

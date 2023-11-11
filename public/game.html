@@ -21,6 +21,22 @@
         filter: url('#uib-jelly-ooze');
     }
 
+    .custom-button {
+        font-size: 1.125rem; /* equivalent to text-lg */
+        font-weight: 500; /* equivalent to font-medium */
+        text-align: center;
+        padding: 15px 32px; /* equivalent to px-8 py-3 */
+        background-color: #3BC527; /* replace with actual color value */
+        color: white;
+        border: none;
+        border-radius: 9999px; /* equivalent to rounded-full */
+        transition: all 0.3s ease;
+    }
+
+    .custom-button:hover {
+        background-color: #33B121; /* replace with actual color value */
+    }
+
     .dot {
         position: absolute;
         top: calc(50% - var(--uib-dot-size) / 2);
@@ -66,7 +82,7 @@
         }
     }
         #video-container {
-            height: vh;
+            height: 80vh;
             aspect-ratio: 9/16;
             position: relative;
             display: flex;
@@ -92,60 +108,29 @@
             transform: scaleX(-1);
         }
 
-        .primary-button {
-            display: inline-flex;
-            gap: 2px;
-            align-items: center;
-            justify-content: center;
-            white-space: nowrap;
-            max-width: 300px;
-            font-family: 'Inter', sans-serif;
-            border-radius: 9999px;
-            font-size: 1rem;
-            font-weight: 500;
-            padding: 0.5rem 1rem;
-            background-color: #6941c6;
-            color: white;
-            transition: all 0.2s ease-in-out;
-            outline: none;
-            border: 2px solid transparent;
-        }
-
-        .primary-button:hover {
-            background-color: #53389e;
-        }
-
-        .primary-button:focus-visible {
-            outline: 2px solid #53389e;
-        }
-
-        .primary-button:disabled {
-            pointer-events: none;
-            opacity: 0.5;
-        }
-
         .countdown-container {
             width: 100%;
             display: none;
             width: 450px;
             max-width: 100%;
-            background-color: #e0e0e0;
+            border-color: darkgrey;
+            border-width: 2px;
             padding: 3px;
             box-sizing: border-box;
-            border-radius: 5px;
+            border-radius: 9999px;
         }
 
         .countdown-bar {
             height: 20px;
-            background-color: #9e77ed;
+            background-color: hsl(112, 77%, 73%);
             width: 100%;
-            border-radius: 5px;
+            border-radius: 9999px;
             transition: width 1s linear;
         }
     </style>
 </head>
 
-<body style="background-color:#F4F6FA;">
+<body>
     <div
         style="display: flex; height: 100vh; flex-direction: column; justify-content: center; align-items: center; gap: 10px;">
         <div id="loader" class="container">
@@ -173,7 +158,11 @@
             <div class="countdown-bar" id="countdown-bar"></div>
         </div>
         <div id="endScreen" style="display: none; text-align: center;"></div>
-        <button style="display: none;" class="primary-button" id="startButton">Start Game</button>
+
+        <button style="display: none;" id="startButton" class="custom-button">
+            Start a Challenge
+        </button>
+
     </div>
     <script src="https://cdn.jsdelivr.net/npm/@tensorflow/tfjs"></script>
     <script src="https://cdn.jsdelivr.net/npm/@tensorflow-models/body-pix"></script>
@@ -190,7 +179,6 @@
 
         async function setupWebcam() {
             const video = document.getElementById('webcam');
-            console.log(video)
             const stream = await navigator.mediaDevices.getUserMedia({ video: true });
             video.srcObject = stream;
             return new Promise((resolve) => {
@@ -213,7 +201,6 @@
                 document.getElementById('loader').style.display = 'none';
             }, 3000);
             const video = await setupWebcam();
-            console.log("Hoi2")
             video.play();
             const canvas = document.getElementById('canvas');
             canvas.width = video.videoWidth;
@@ -226,6 +213,8 @@
         }
 
         function startGame(net, video, canvas, ctx) {
+            document.getElementById('startButton').style.display = 'block';
+            document.getElementById('video-container').style.display = 'block';
             document.getElementById('countdownContainer').style.display = 'block';
             const countdownBar = document.getElementById('countdown-bar');
             let timeLeft = gameLength;
@@ -239,7 +228,7 @@
                 if (timeLeft <= 0) {
                     clearInterval(countdownInterval);
                     countdownBar.style.width = '0%';
-                    endGame(ctx, score, canvas);
+                    endGame(net, ctx, score, canvas);
                 }
             }, 1000);
 
@@ -380,22 +369,32 @@
             ctx.restore();
         }
 
-        function endGame(ctx, score, canvas) {
+        function endGame(net, ctx, score, canvas) {
             gameActive = false;
             canvas.style.display = 'block';
+
+            if (localStorage.getItem('jumpScore') && parseInt(localStorage.getItem('jumpScore')) > score) {
+                localStorage.setItem('jumpScore', score);
+            }
+
+            if (localStorage.getItem('jumpScore') == null) {
+                localStorage.setItem('jumpScore', score);
+            }
+
             setTimeout(() => {
-                showEndScreen(ctx, score, canvas);
-            }, 100);
+                showEndScreen(net, ctx, score, canvas);
+            }, 300);
         }
 
-        function showEndScreen(ctx, score, canvas) {
-            ctx.clearRect(0, 0, canvas.width, canvas.height);
-            ctx.setTransform(1, 0, 0, 1, 0, 0);
-            ctx.fillStyle = '#F4F6FA';
-            ctx.fillRect(0, 0, canvas.width, canvas.height);
-            ctx.save();
-            ctx.translate(canvas.width, 0);
-            
+        function showEndScreen(net, ctx, score, canvas) {
+            // Hide all elements show play again button
+            document.getElementById('video-container').style.display = 'none';
+            document.getElementById('countdownContainer').style.display = 'none';
+            document.getElementById('endScreen').style.display = 'block';
+            document.getElementById('endScreen').innerHTML = `
+                <h2 style="color: #494949; font-size: 30px; font-family: Ambit;">Score: ${score}</h2>
+                <h2 style="color: #494949; font-size: 30px; font-family: Ambit;">High Score: ${localStorage.getItem('jumpScore')}</h2>
+            `;
         }
         main();
     </script>
