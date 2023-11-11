@@ -1,52 +1,55 @@
-// Import React and useState hook
 import React, { useState } from 'react';
 import './quiz.css';
-// Import Tailwind CSS styles
+import QScreen1 from "../modules/qscreen1";
+import QScreen2 from "../modules/qscreen2";
+import QScreen3 from "../modules/qscreen3";
+import QScreen4 from "../modules/qscreen4";
+import QScreen5 from "../modules/qscreen5";
+import QScreenLoading from "../modules/qscreenloading";
 import 'tailwindcss/tailwind.css';
 
-// Define each question as a separate component
-const QuestionOne = ({ onNext }) => {
-    return (
-      <div className="flex flex-col items-center justify-center bg-gradient-custom h-screen">
-        <h2 className="text-xl font-semibold mb-4 text-white">What is 1+1?</h2>
-        <button className="mt-4 px-4 py-2 bg-blue-500 text-white rounded hover:bg-blue-700 transition duration-300" onClick={onNext}>Next</button>
-      </div>
-    );
-  };
-
-const QuestionTwo = ({ onNext }) => {
-    return (
-      <div className="flex flex-col items-center justify-center">
-        <h2 className="text-xl font-semibold mb-4">What is 2+2?</h2>
-        <button className="mt-4 px-4 py-2 bg-blue-500 text-white rounded" onClick={onNext}>Next</button>
-      </div>
-    );
-  };
-
-  const QuestionThree = ({ onNext }) => {
-    return (
-      <div className="flex flex-col items-center justify-center">
-        <h2 className="text-xl font-semibold mb-4">What is 3+3?</h2>
-        <button className="mt-4 px-4 py-2 bg-blue-500 text-white rounded" onClick={onNext}>Next</button>
-      </div>
-    );
-  };
-// ... Define components for QuestionTwo, QuestionThree, ..., QuestionSeven
-
-// Main Quiz component that controls the flow
 const Quiz = () => {
   const [currentStep, setCurrentStep] = useState(1);
 
   const nextStep = () => {
-    setCurrentStep((prevStep) => (prevStep < 7 ? prevStep + 1 : prevStep));
+    setCurrentStep((prevStep) => (prevStep < 6 ? prevStep + 1 : prevStep));
   };
 
+  const prevStep = () => {
+    setCurrentStep((prevStep) => (prevStep > 1 ? prevStep - 1 : prevStep));
+  }
+
+  const renderScreen = () => {
+    switch (currentStep) {
+      case 1:
+        return <QScreen1 nextStep={nextStep} />;
+      case 2:
+        return <QScreen2 nextStep={nextStep} prevStep={prevStep} />;
+      case 3:
+        return <QScreen3 nextStep={nextStep} prevStep={prevStep} />;
+      case 4:
+        return <QScreen4 nextStep={nextStep} prevStep={prevStep} />;
+      case 5:
+        return <QScreenLoading nextStep={nextStep}/>;
+      case 6:
+        return <QScreen5 nextStep={nextStep} prevStep={prevStep} />;
+      default:
+        return <QScreen1 nextStep={nextStep} prevStep={prevStep} />;
+    }
+  };
 
   return (
-    <div className="container mx-auto p-8">
-      {currentStep === 1 && <QuestionOne onNext={nextStep} />}
-      {currentStep === 2 && <QuestionTwo onNext={nextStep} />}
-      {currentStep === 3 && <QuestionThree onNext={nextStep} />}
+    <div
+      style={{
+        background: "linear-gradient(45deg, #2F80ED, #56CCF2)",
+      }}
+      className="min-h-screen p-4 flex flex-col justify-center"
+    >
+      <div className="container mx-auto max-w-5xl">
+        <div className="bg-white rounded-2xl p-16">
+          {renderScreen()}
+        </div>
+      </div>
     </div>
   );
 };
