@@ -1,4 +1,4 @@
-function QScreen4({ nextStep }) {
+function QScreen4({ nextStep, toggleModal }) {
   return (
     <div className="flex flex-col items-center">
       <h2 className="text-3xl md:text-5xl font-black uppercase text-center mb-2 max-w-xl">
@@ -10,7 +10,7 @@ function QScreen4({ nextStep }) {
       </p>
       <div className="grid gap-6 grid-cols-1 md:grid-cols-2 w-full">
         <div className="overflow-hidden relative rounded-xl bg-[#F4F8FF] min-h flex flex-col items-center pt-12 min-h-[400px]">
-          <button className="text-lg font-medium text-center px-8 py-3 bg-primary hover:bg-primary-hover rounded-full text-white transition-all" onClick={() => nextStep()}>
+          <button className="text-lg font-medium text-center px-8 py-3 bg-primary hover:bg-primary-hover rounded-full text-white transition-all" onClick={() => toggleModal()}>
             Upload a photo
           </button>
           <img
