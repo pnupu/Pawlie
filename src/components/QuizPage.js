@@ -5,6 +5,9 @@ import QScreen2 from "../modules/qscreen2";
 import QScreen3 from "../modules/qscreen3";
 import QScreen4 from "../modules/qscreen4";
 import QScreen5 from "../modules/qscreen5";
+import QScreen6 from "../modules/qscreen6";
+import QScreen7 from "../modules/qscreen7";
+import QScreen8 from "../modules/qscreen8";
 import QScreenLoading from "../modules/qscreenloading";
 import 'tailwindcss/tailwind.css';
 
@@ -12,7 +15,7 @@ const Quiz = () => {
   const [currentStep, setCurrentStep] = useState(1);
 
   const nextStep = () => {
-    setCurrentStep((prevStep) => (prevStep < 6 ? prevStep + 1 : prevStep));
+    setCurrentStep((prevStep) => (prevStep < 9 ? prevStep + 1 : prevStep));
   };
 
   const prevStep = () => {
@@ -33,6 +36,12 @@ const Quiz = () => {
         return <QScreenLoading nextStep={nextStep}/>;
       case 6:
         return <QScreen5 nextStep={nextStep} prevStep={prevStep} />;
+      case 7:
+        return <QScreen6 nextStep={nextStep} prevStep={prevStep} />;
+      case 8:
+        return <QScreen7 nextStep={nextStep} prevStep={prevStep} />;
+      case 9:
+        return <QScreen8 nextStep={nextStep} prevStep={prevStep} />;
       default:
         return <QScreen1 nextStep={nextStep} prevStep={prevStep} />;
     }

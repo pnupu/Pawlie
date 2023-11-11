@@ -1,4 +1,4 @@
-function QScreen3({ nextStep}) {
+function QScreen3({ nextStep }) {
   return (
     <div className="flex flex-col items-center">
       <h2 className="text-5xl font-black uppercase text-center mb-2 max-w-3xl">

@@ -10,10 +10,10 @@ function App() {
     <BrowserRouter>
       <div className="min-h-screen bg-gray-100">
         <Routes>
-          <Route path="/" element={<HomePage />} />
+          <Route path="/dev" element={<HomePage />} />
           <Route path="/game" element={<GamePage />} />
           <Route path="/pet" element={<PetPage />} />
-          <Route path="/quiz" element={<QuizPage />} />
+          <Route path="/" element={<QuizPage />} />
           {/* Add more routes as needed */}
         </Routes>
       </div>
