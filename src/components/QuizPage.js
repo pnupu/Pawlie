@@ -9,13 +9,14 @@ import QScreen6 from "../modules/qscreen6";
 import QScreen7 from "../modules/qscreen7";
 import QScreen8 from "../modules/qscreen8";
 import QScreenLoading from "../modules/qscreenloading";
+import QScreenChallenge from "../modules/qscreenchallenge";
 import 'tailwindcss/tailwind.css';
 
 const Quiz = () => {
   const [currentStep, setCurrentStep] = useState(1);
 
   const nextStep = () => {
-    setCurrentStep((prevStep) => (prevStep < 9 ? prevStep + 1 : prevStep));
+    setCurrentStep((prevStep) => (prevStep < 10 ? prevStep + 1 : prevStep));
   };
 
   const prevStep = () => {
@@ -42,6 +43,8 @@ const Quiz = () => {
         return <QScreen7 nextStep={nextStep} prevStep={prevStep} />;
       case 9:
         return <QScreen8 nextStep={nextStep} prevStep={prevStep} />;
+      case 10:
+          return <QScreenChallenge nextStep={nextStep} />;
       default:
         return <QScreen1 nextStep={nextStep} prevStep={prevStep} />;
     }
