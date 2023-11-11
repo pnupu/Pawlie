@@ -144,6 +144,7 @@ const Quiz = () => {
     return imageurl
   }
   function GetApiData(url) {
+    console.log(process.env)
     nextStep();
     const sendImageToOpenAI = async () => {
       try {
@@ -161,7 +162,7 @@ const Quiz = () => {
           max_tokens: 300
         }, {
           headers: {
-            'Authorization': `Bearer ` + process.env.CHATGPT_API_KEY, // Replace with your API key
+            'Authorization': `Bearer ${process.env.CHATGPT_API_KEY}`, // Replace with your API key
             'Content-Type': 'application/json'
           }
         });
