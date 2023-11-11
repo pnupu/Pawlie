@@ -7,7 +7,9 @@ function Quiz({ children }) {
       className="min-h-screen p-4 flex flex-col justify-center"
     >
       <div className="container mx-auto max-w-5xl">
-        <div className="bg-white rounded-2xl p-16">{children}</div>
+        <div className="relative overflow-hidden bg-white rounded-2xl p-16">
+          {children}
+        </div>
       </div>
     </div>
   );

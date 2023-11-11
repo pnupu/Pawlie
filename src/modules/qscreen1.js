@@ -1,6 +1,11 @@
 function QScreen1() {
   return (
     <div className="flex flex-col items-center">
+      <img
+        src="/hero-cover-min.jpg"
+        className="absolute top-0 w-full max-h-[30vh] object-cover"
+      ></img>
+      <div className="h-[30vh]"></div>
       <h1 className="text-6xl font-black uppercase text-center mb-6">
         Embark on a Fitness Adventure with Pawlie
       </h1>
