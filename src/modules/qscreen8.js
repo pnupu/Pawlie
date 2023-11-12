@@ -23,7 +23,7 @@ function QScreen8({ nextStep}) {
         <button className="text-lg font-medium text-center px-8 py-3 bg-primary hover:bg-primary-hover rounded-full text-white transition-all"
           onClick={() => nextStep()}
         >
-          Start a Challenge
+          Ready for a Challenge?
         </button>
       </div>
     </div>
