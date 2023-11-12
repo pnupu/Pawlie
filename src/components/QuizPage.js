@@ -9,6 +9,7 @@ import QScreen5 from "../modules/qscreen5";
 import QScreen6 from "../modules/qscreen6";
 import QScreen7 from "../modules/qscreen7";
 import QScreen8 from "../modules/qscreen8";
+import QScreen9 from "../modules/qscreen9";
 import QScreenLoading from "../modules/qscreenloading";
 import QScreenChallenge from "../modules/qscreenchallenge";
 import QScreenResults from "../modules/qscreenresults";
@@ -281,12 +282,15 @@ const Quiz = () => {
         <QScreen8 nextStep={nextStep} prevStep={prevStep} />
       </div>
       <div style={{ display: currentStep === 10 ? 'block' : 'none' }}>
-        <QScreenChallenge nextStep={nextStep} />
+        <QScreen9 nextStep={nextStep} prevStep={prevStep} />
       </div>
       <div style={{ display: currentStep === 11 ? 'block' : 'none' }}>
-        <QScreenResults nextStep={nextStep} localimageurl={localimageurl} />
+        <QScreenChallenge nextStep={nextStep} />
       </div>
       <div style={{ display: currentStep === 12 ? 'block' : 'none' }}>
+        <QScreenResults nextStep={nextStep} localimageurl={localimageurl} />
+      </div>
+      <div style={{ display: currentStep === 13 ? 'block' : 'none' }}>
         <LoginScreen stepBack={stepBack} />
       </div>
     </>
