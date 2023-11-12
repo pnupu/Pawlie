@@ -119,7 +119,10 @@ const Quiz = () => {
   };
   
   const parseApiDataToImage = (apiData, delay) => {
-    const parts = apiData.toLowerCase().replace(/\.$/, "").split(', ');
+    let parts = apiData.toLowerCase().replace(/\.$/, "").split(', ');
+    if(apiData.lenght > 30) {
+      parts = [null, null, null]
+    }
     let imageurl = ""
     const glassesOrNo = parts[0]
     const skintone = parts[1]
