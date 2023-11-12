@@ -110,9 +110,10 @@ const Quiz = () => {
   const parseApiDataToImage = (apiData, delay) => {
     const parts = apiData.toLowerCase().replace(/\.$/, "").split(', ');
     let imageurl = ""
-    const glassesOrNo = parts[0] || "no"
-    const skintone = parts[1] || "light"
-    const gender = parts[2] || "male"
+    const glassesOrNo = parts[0]
+    const skintone = parts[1]
+    const gender = parts[2]
+    if(gender && skintone && glassesOrNo){
     if(gender === "female"){
       var randomNumber = Math.random();
 
@@ -133,6 +134,7 @@ const Quiz = () => {
         imageurl = "rabbits/rabbit_no_male_" + skintone + ".png"
       }
     }
+  }
     console.log(imageurl)
     if(imageurl === ""){
       //Generate random
@@ -153,15 +155,17 @@ const Quiz = () => {
       if(choice !== "rabbit") {
         randomNumber = Math.random();
         if(randomNumber < 0.5) glasses = "yes"
-      
-        imageurl = choice + "s/" + choice + "_" + glasses + "_" + gen + "_" + skin + ".png";
+        if(choice === "dog") {
+        imageurl = choice + "s/" + choice + "_" + glasses + "_male_" + skin + ".png";
+        } else {
+          imageurl = choice + "s/" + choice + "_" + glasses + "_female_" + skin + ".png";
+        }
       } else {
         var gendermath = Math.random();
         if(gendermath < 0.5) gen = "male"
         else gen = "female"
         imageurl = "rabbits/rabbit_no_" + gen + "_" + skin + ".png"
       }
-      imageurl = "rabbits/rabbit_no_female_medium.png"
     }
     //Store imageurl in local storage
     localStorage.setItem('localimageurl', JSON.stringify(imageurl));
@@ -247,7 +251,7 @@ const Quiz = () => {
       case 10:
           return <QScreenChallenge nextStep={nextStep} />;
       case 11:
-          return <QScreenResults nextStep={nextStep}  localimageurl={localimageurl} />;
+          return <QScreenResults localimageurl={localimageurl} />;
       default:
         return <QScreen1 nextStep={nextStep} prevStep={prevStep} />;
     }
