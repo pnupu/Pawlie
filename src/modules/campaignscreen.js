@@ -57,30 +57,30 @@ function CampaignScreen() {
           }
           onStart={() => navigate("/qr-game-table")}
 
-        challengeName="Visit the creators" />
+        challengeName="Meet the Makers" />
 
         <div id="divider" className="flex gap-3 items-center w-full py-2">
           <p className="text-[#BCBCBC] text-sm uppercase font-bold">Level 2</p>
           <div className="h-[1px] bg-[#d6d6d6] flex-grow"></div>
         </div>
 
-        <ChallengeCard type="disabled" challengeName="Challenge 4" />
+        <ChallengeCard type="disabled" challengeName="Riddle of the runes" />
 
-        <ChallengeCard type="disabled" challengeName="Challenge 5" />
+        <ChallengeCard type="disabled" challengeName="Echoes of the Elders" />
 
-        <ChallengeCard type="disabled" challengeName="Challenge 6" />
+        <ChallengeCard type="disabled" challengeName="Gadget Gauntlet" />
 
         <div id="divider" className="flex gap-3 items-center w-full py-2">
           <p className="text-[#BCBCBC] text-sm uppercase font-bold">Level 3</p>
           <div className="h-[1px] bg-[#d6d6d6] flex-grow"></div>
         </div>
 
-        <ChallengeCard type="disabled" challengeName="Challenge 7" />
+        <ChallengeCard type="disabled" challengeName="Voyage of Valor" />
+        <ChallengeCard type="disabled" challengeName="Cryptic Crossroads" />
 
-        <ChallengeCard type="disabled" challengeName="Challenge 8" />
+        <ChallengeCard type="disabled" challengeName="Secrets of the Sphinx" />
 
-        <ChallengeCard type="disabled" challengeName="Challenge 9" />
-        <ChallengeCard type="disabled" challengeName="Challenge 10" />
+        <ChallengeCard type="disabled" challengeName="Final Frontier" />
       </div>
       <Toaster/>
     </div>
