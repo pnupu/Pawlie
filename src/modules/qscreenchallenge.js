@@ -1,7 +1,11 @@
 import { useEffect, useState } from "react";
+import QRChallenge from "../components/QRChallenge";
+import {Wrapper} from "../components/QRChallenge";
+
 
 function QScreenChallenge({nextStep}) {
   const [canContinue, setCanContinue] = useState(false);
+  const isMobile = navigator.userAgentData.mobile;
   
   useEffect(() => {
     // set a timer that checks localStorage jumpScore and sets variable
@@ -20,6 +24,12 @@ function QScreenChallenge({nextStep}) {
     }
 
   }, [canContinue])
+
+  if (isMobile) {
+    return (
+        <QRChallenge fromSignIn={true} onFound={() => nextStep()} whereToFind={"Find the first challenge near the stairs. Look for a QR code."}/>
+    )
+  }
 
   return (
     <div className="flex flex-col items-center">
@@ -65,9 +75,8 @@ function QScreenChallenge({nextStep}) {
           </li>
         </ul>
       </div>
-      <div
+      {!isMobile && <div
         style={{
-          aspectRatio: "9 / 16",
           height: "80vh",
         }}
         className="overflow-hidden rounded-xl  w-full max-w-xl mt-4 mb-10"
@@ -98,7 +107,7 @@ function QScreenChallenge({nextStep}) {
             border: "none"
           }}
         />
-      </div>
+      </div>}
       {canContinue && <button className="text-lg font-medium text-center px-8 py-3 bg-primary hover:bg-primary-hover rounded-full text-white transition-all"
           onClick={() => nextStep()}
         >
