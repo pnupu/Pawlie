@@ -12,6 +12,7 @@ import QScreen8 from "../modules/qscreen8";
 import QScreenLoading from "../modules/qscreenloading";
 import QScreenChallenge from "../modules/qscreenchallenge";
 import QScreenResults from "../modules/qscreenresults";
+import LoginScreen from "../modules/loginscreen";
 
 import 'tailwindcss/tailwind.css';
 
@@ -221,18 +222,26 @@ const Quiz = () => {
       parseApiDataToImage("", 2000);
 
     }
-    setCurrentStep((prevStep) => (prevStep < 11 ? prevStep + 1 : prevStep));
+    setCurrentStep((prevStep) => (prevStep < 12 ? prevStep + 1 : prevStep));
   };
 
   const prevStep = () => {
     setCurrentStep((prevStep) => (prevStep > 1 ? prevStep - 1 : prevStep));
   }
 
+  const toLogin = () => {
+    console.log("to login")
+    setCurrentStep(12)
+  }
+
+  const stepBack = () => {
+    setCurrentStep(1)
+  }
   const renderScreen = () => {
   return (
     <>
       <div style={{ display: currentStep === 1 ? 'block' : 'none' }}>
-        <QScreen1 nextStep={nextStep} />
+        <QScreen1 nextStep={nextStep} toLogin={toLogin}/>
       </div>
       <div style={{ display: currentStep === 2 ? 'block' : 'none' }}>
         <QScreen2 nextStep={nextStep} prevStep={prevStep} />
@@ -263,6 +272,9 @@ const Quiz = () => {
       </div>
       <div style={{ display: currentStep === 11 ? 'block' : 'none' }}>
         <QScreenResults nextStep={nextStep} localimageurl={localimageurl} />
+      </div>
+      <div style={{ display: currentStep === 12 ? 'block' : 'none' }}>
+        <LoginScreen stepBack={stepBack} />
       </div>
     </>
   );

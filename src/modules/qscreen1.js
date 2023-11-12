@@ -1,4 +1,4 @@
-function QScreen1({ nextStep }) {
+function QScreen1({ nextStep, toLogin }) {
   return (
     <div className="flex flex-col items-center">
       <img
@@ -10,14 +10,22 @@ function QScreen1({ nextStep }) {
         Spaw-t is the new sport
       </h1>
       <p className="text-lg md:text-xl text-dark-secondary text-center mb-8 max-w-xl">
-       Your unique companion to achieve your athletic aspirations.
+        Your unique companion to achieve your athletic aspirations.
       </p>
-      <button className="text-lg font-medium text-center px-8 py-3 bg-primary hover:bg-primary-hover rounded-full text-white transition-all" onClick={() => nextStep()}>
+      <button
+        className="text-lg font-medium text-center px-8 py-3 bg-primary hover:bg-primary-hover rounded-full text-white transition-all mb-4"
+        onClick={() => nextStep()}
+      >
         Start Your Journey
+      </button>
+      <button
+        className="text-lg font-medium text-center px-8 py-3 border border-primary rounded-full text-primary transition-all"
+        onClick={() => toLogin()}
+      >
+        Already have an account? Sign in
       </button>
     </div>
   );
 }
 
-  export default QScreen1;
-  
+export default QScreen1;

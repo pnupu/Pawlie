@@ -73,6 +73,9 @@ const videoClassNames = `max-w-full h-auto transition-transform duration-300 eas
             onMouseDown={handleMouseDown}
             onMouseUp={handleMouseUp}
             onMouseLeave={handleMouseUp}
+            onTouchStart={handleMouseDown}
+            onTouchEnd={handleMouseUp}
+            onTouchCancel={handleMouseUp} 
           >
             <img
               src="/badges-pawlie.png"
@@ -83,6 +86,9 @@ const videoClassNames = `max-w-full h-auto transition-transform duration-300 eas
                 onMouseDown={handleMouseDown}
                 onMouseUp={handleMouseUp}
                 onMouseLeave={handleMouseUp}
+                onTouchStart={handleMouseDown}
+                onTouchEnd={handleMouseUp}
+                onTouchCancel={handleMouseUp} 
               >
                 <svg
                   width="24"
@@ -129,6 +135,9 @@ const videoClassNames = `max-w-full h-auto transition-transform duration-300 eas
             onMouseDown={handleMouseDown}
             onMouseUp={handleMouseUp}
             onMouseLeave={handleMouseUp}
+            onTouchStart={handleMouseDown}
+            onTouchEnd={handleMouseUp}
+            onTouchCancel={handleMouseUp} 
             className={videoClassNames}
           >
             <source src={videoUrl} type="video/mp4" />

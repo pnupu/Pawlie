@@ -36,20 +36,34 @@ function CampaignScreen() {
             }
             navigate("/jump-game")
           }}
-          challengeName="Challenge 1"
+          challengeName="Jump Game"
         />
+
+//         <ChallengeCard
+//           type="active"
+//           challengeName=""
+//           onStart={() => {
+//             navigate("/qr-game")
+//           }}
+//         />
 
         <ChallengeCard
-          type="active"
-          challengeName="Challenge 2"
-          onStart={() => {
-            navigate("/qr-game")
-            
-          }}
+          type={user?.highScores?.game2 > 0 ? "completed" : "active"}
+          challengeName="Climb the mountain"
+          onStart={() => navigate("/qr-game-mountain")}
         />
 
+        <ChallengeCard 
+          type={
+            user?.highScores?.game2 === 0
+              ? "disabled"
+              : user?.highScores?.game3 > 0
+              ? "completed"
+              : "active"
+          }
+          onStart={() => navigate("/qr-game-table")}
 
-        <ChallengeCard type="disabled" challengeName="Challenge 3" />
+        challengeName="Visit the creators" />
 
         <div id="divider" className="flex gap-3 items-center w-full py-2">
           <p className="text-[#BCBCBC] text-sm uppercase font-bold">Level 2</p>
