@@ -7,7 +7,7 @@ function QScreen1({ nextStep, toLogin }) {
       ></img>
       <div className="h-[320px] md:h-[30vh]"></div>
       <h1 className="text-4xl md:text-6xl font-black uppercase text-center mb-6">
-        S-paw-t is the new sport
+        Spaw-t is the new sport
       </h1>
       <p className="text-lg md:text-xl text-dark-secondary text-center mb-8 max-w-xl">
         Your unique companion to achieve your athletic aspirations.
