@@ -94,8 +94,8 @@ function QRChallenge({whereToFind, onFound, fromSignIn}) {
                 let data = {
                     highScores: {
                         game1: user.highScores.game1,
-                        game2: newScore,
-                        game3: user.highScores.game3,
+                        game2: user.highScores.game2,
+                        game3: newScore,
                     },
                 }
 
@@ -129,11 +129,14 @@ function QRChallenge({whereToFind, onFound, fromSignIn}) {
               
               
               setScore(newScore);
-              clearInterval(intervalId);
-              setIntervalId(null);
-              setCurrChallenge(null);
-              setCountdown(null);
-              setStartTime(null);
+              setTimeout(() => {
+                clearInterval(intervalId);
+                setIntervalId(null);
+                setCurrChallenge(null);
+                setCountdown(null);
+                setStartTime(null);
+              }, 1000);
+
               return;     
             } else if (currChallenge && !currChallenge?.end.includes(result.toString()) && currChallenge?.id !==  result.toString()) {
               alert("Almost there, but this QR code is not part of the current challenge")
@@ -181,6 +184,7 @@ function QRChallenge({whereToFind, onFound, fromSignIn}) {
 
         
 
+        <div className='text-lg md:text-xl mx-auto text-dark-secondary text-center mb-8 max-w-xl' style={{fontSize: 30}}>Visit the table of the creators next to the snacks and strais.</div>
         <div className='text-lg md:text-xl mx-auto text-dark-secondary text-center mb-8 max-w-xl' style={{fontSize: 20}}>Points: {score}</div>
         {fromSignIn && completed && <button className="text-lg self-center font-medium text-center px-8 py-3 bg-primary hover:bg-primary-hover rounded-full text-white transition-all"
           onClick={() => {
