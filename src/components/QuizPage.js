@@ -236,7 +236,7 @@ const Quiz = () => {
       parseApiDataToImage("", 2000);
 
     }
-    setCurrentStep((prevStep) => (prevStep < 12 ? prevStep + 1 : prevStep));
+    setCurrentStep((prevStep) => (prevStep < 13 ? prevStep + 1 : prevStep));
   };
 
   const prevStep = () => {

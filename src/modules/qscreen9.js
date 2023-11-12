@@ -4,7 +4,7 @@ import { ExclamationTriangleIcon } from '@heroicons/react/20/solid'
 
 
 function QScreen9({ nextStep}) {
-  const isMobile = navigator.userAgentData.mobile;
+  const isMobile = window.innerWidth <= 768; // typical breakpoint for mobile devices
   let navigate = useNavigate();
 
   const handleStartChallengeClick = () => {

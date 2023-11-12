@@ -5,7 +5,7 @@ import {Wrapper} from "../components/QRChallenge";
 
 function QScreenChallenge({nextStep}) {
   const [canContinue, setCanContinue] = useState(false);
-  const isMobile = navigator.userAgentData.mobile;
+  const isMobile = window.innerWidth <= 768; // typical breakpoint for mobile devices
   
   useEffect(() => {
     // set a timer that checks localStorage jumpScore and sets variable
