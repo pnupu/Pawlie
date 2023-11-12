@@ -7,7 +7,7 @@ const challenges = {
   1: {
     id: "1",
     title: "Run up the stairs",
-    instructions: "Quickly run up the stairs and scan QR on the left.",
+    instructions: "Quickly run up the stairs and scan QR on the column.",
     duration: 30,
     score: [20],
     end: ["4"],
@@ -81,7 +81,7 @@ function QRChallenge({whereToFind, onFound, fromSignIn}) {
               newScore = newScore || score + rewardedScore;
 
               if (newScore !== score) {
-                toast.success(`You have completed the challenge and earned ${rewardedScore} points!`, {
+                toast.success(`You have completed the challenge and earned ${newScore || rewardedScore} points!`, {
                   duration: 5000,
                 });
                 setCompleted(true);

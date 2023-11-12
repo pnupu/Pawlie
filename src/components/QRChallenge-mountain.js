@@ -7,7 +7,7 @@ const challenges = {
   1: {
     id: "1",
     title: "Run up the stairs",
-    instructions: "Quickly run up the stairs and scan QR on the left.",
+    instructions: "Quickly run up the stairs and scan QR on the column.",
     duration: 30,
     score: [20],
     end: ["4"],
