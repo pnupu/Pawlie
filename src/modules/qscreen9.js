@@ -4,6 +4,7 @@ import { ExclamationTriangleIcon } from '@heroicons/react/20/solid'
 
 
 function QScreen9({ nextStep}) {
+  const isMobile = navigator.userAgentData.mobile;
   let navigate = useNavigate();
 
   const handleStartChallengeClick = () => {
@@ -11,12 +12,35 @@ function QScreen9({ nextStep}) {
     navigate('/game');
   };
 
+  if (isMobile) {
+    return (
+        <div className="flex flex-col items-center">
+        <h2 className="text-3xl md:text-5xl font-black uppercase text-center mb-8 max-w-2xl">
+            Mountain Climb
+        </h2>
+        <img src="/qr.jpg" style={{height: 500, borderRadius: 10, width: 500}} className="max-w-2xl  w-full"></img>
+        <p className="text-lg md:text-xl text-dark-secondary text-center mt-8 max-w-2xl">
+            Jump, dip, and squat your way to the top of the leaderboard. The faster you move, the more points you earn.
+        </p>
+        {/* <Alert text={"Run this game on your laptop with webcam permission. The solution uses a human recognition model, therefore you have to be the only human in the frame."}></Alert> */}
+
+        <div className="flex gap-4 items-center mt-8">
+            <button className="text-lg font-medium text-center px-8 py-3 bg-primary hover:bg-primary-hover rounded-full text-white transition-all"
+            onClick={() => nextStep()}
+            >
+            Let's get going!
+            </button>
+        </div>
+        </div>
+    )
+  }
+
   return (
     <div className="flex flex-col items-center">
       <h2 className="text-3xl md:text-5xl font-black uppercase text-center mb-8 max-w-2xl">
         Red is Lava
       </h2>
-      <img src="/part2.gif" style={{height: 500, width: 500}} className="max-w-2xl  w-full"></img>
+      <img src="/part2.gif" style={{borderRadius: 10, height: 500, width: 500}} className="max-w-2xl  w-full"></img>
       <p className="text-lg md:text-xl text-dark-secondary text-center mt-8 max-w-2xl">
         Jump, dip, and squat your way to the top of the leaderboard. The faster you move, the more points you earn.
       </p>
