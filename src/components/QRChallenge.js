@@ -22,7 +22,7 @@ const challenges = {
   12: {
     id: "12",
     title: "Free Challenge",
-    score: 5,
+    score: [5],
     end: ["12"],
   }
 }
@@ -49,8 +49,8 @@ function QRChallenge({whereToFind, onFound, fromSignIn}) {
       <div className='mx-auto w-96 rounded h-96 max-h-full max-w-full'>
       <QrScanner
           containerStyle={{borderRadius: 10}}
-          onDecode={(result) => {            
-            if (currChallenge && currChallenge?.end.filter(endId => endId === result.toString()).length > 0) {
+          onDecode={(result) => {
+            if ((currChallenge && currChallenge?.end.filter(endId => endId === result.toString()).length > 0) || result.toString === "12") {
               const endIdIndex = currChallenge?.end.indexOf(result.toString());
               let rewardedScore;
               if (endIdIndex !== -1 && Array.isArray(currChallenge.score)) {
@@ -84,7 +84,11 @@ function QRChallenge({whereToFind, onFound, fromSignIn}) {
                 setCompleted(true);
               }
 
-              if (localStorage.getItem('qrScore') && parseInt(localStorage.getItem('qrScore')) < newScore) {
+              if (localStorage.getItem('qrScore') == null) {
+                localStorage.setItem('qrScore', newScore);
+              }
+
+              if (localStorage.getItem('qrScore') && parseInt(localStorage.getItem('qrScore')) <= newScore) {
                 if (localStorage.getItem("user")) {
                 let user = JSON.parse(localStorage.getItem('user'));
                 let data = {
@@ -120,9 +124,7 @@ function QRChallenge({whereToFind, onFound, fromSignIn}) {
                 localStorage.setItem('qrScore', newScore);
               }
 
-              if (localStorage.getItem('qrScore') == null) {
-                localStorage.setItem('qrScore', newScore);
-              }
+              
 
               
               
