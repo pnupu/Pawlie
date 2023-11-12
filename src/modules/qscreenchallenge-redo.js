@@ -50,7 +50,7 @@ function QScreenChallenge() {
       <div
         style={{
           aspectRatio: "9 / 16",
-          height: "80vh",
+          height: "60vh",
         }}
         className="overflow-hidden rounded-xl  w-full max-w-xl mt-4 mb-10"
       >
