@@ -6,7 +6,7 @@ import toast, { Toaster }from 'react-hot-toast';
 
 function CampaignScreen() {
   const navigate = useNavigate(); // This hook allows you to navigate programmatically
-    const isMobile = navigator.userAgentData.mobile;
+    const isMobile = window.innerWidth <= 768;
 
   const [user, setUser] = useState(null);
   useEffect(() => {
