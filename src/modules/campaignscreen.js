@@ -32,7 +32,7 @@ function CampaignScreen() {
         <ChallengeCard
           type="active"
           challengeName="Challenge 2"
-          onStart={() => navigate("/qr-gamae")}
+          onStart={() => navigate("/qr-game")}
         />
 
         <ChallengeCard type="disabled" challengeName="Challenge 3" />

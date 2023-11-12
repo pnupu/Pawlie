@@ -15,7 +15,20 @@ function LeaderboardScreen() {
 
     fetchPlayers().catch(console.error); // Execute the fetch and log any errors
   }, []); // Empty dependency array means this effect will only run once on mount
+  const calculateStars = (highScores) => {
 
+    let stars = 0;
+    console.log(highScores);
+    Object.values(highScores).forEach(score => {
+      if (score >= 10) {
+        // One star for reaching 10 points
+        stars += 1;
+        // Additional stars for each 10 points over the initial 10
+        stars += Math.floor((score - 10) / 10);
+      }
+    });
+    return stars;
+  };
   return (
     <div className="flex-grow flex flex-col overflow-y-auto p-5 md:p-6">
       <h1 className="text-2xl font-bold uppercase mb-8">Leaderboard</h1>
@@ -32,7 +45,7 @@ function LeaderboardScreen() {
               key={index} // It's better to use unique ids if they are available
               name={player.username}
               points={player.totalScore.toString()} // Ensure this is a string if your component expects a string
-              highscore={Math.max(...Object.values(player.highScores)).toString()} // Assuming you want to display the highest individual game score
+              highscore={calculateStars(player.highScores)} // Assuming you want to display the highest individual game score
               position={index + 1} // Position in the list
               src={player.localimageurl || "rabbits/rabbit_no_female_medium.png"} // Placeholder image, replace with your logic if necessary
             />

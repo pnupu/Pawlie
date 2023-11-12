@@ -1,9 +1,11 @@
 import React, { useState } from 'react';
+import { useNavigate } from 'react-router-dom';
 
 
 function QScreenResults({localimageurl, nextStep}) {
   const [name, setName] = useState('');
   const [number, setNumber] = useState('');
+  const navigate = useNavigate(); // This hook allows you to navigate programmatically
 
   async function handleSubmit(event) {
     event.preventDefault(); // Prevent the default form submission behavior
@@ -36,7 +38,7 @@ function QScreenResults({localimageurl, nextStep}) {
         console.log("New user created:", newUser);
         //Store user in local storage
         localStorage.setItem('user', JSON.stringify(newUser));
-        nextStep();
+        navigate("/");
         // Here you might want to do something upon successful user creation
       } else {
         // If the server response is not ok, handle errors
@@ -191,7 +193,7 @@ function QScreenResults({localimageurl, nextStep}) {
           />
         </div>
 
-        <button className="text-lg font-medium text-center px-8 py-3 bg-primary hover:bg-primary-hover rounded-full text-white transition-all" onClick={handleSubmit}>
+        <button className="text-lg font-medium text-center px-8 py-3 bg-primary hover:bg-primary-hover rounded-full text-white transition-all" onClick={(event) => handleSubmit(event)}>
           Signup
         </button>
         <p className="text-xs text-center">
