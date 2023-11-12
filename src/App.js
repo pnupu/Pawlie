@@ -5,7 +5,8 @@ import GamePage from './components/GamePage'; // Your game page component
 import GameCompPage from './components/GameCompPage'; // Your game page component
 import PetPage from './components/PetPage'; // Your pet page component
 import QuizPage from './components/QuizPage'; // Your quiz page component
-import QRChallenge from './components/QRChallenge'; // Your QR challenge component
+import QRChallenge from "./components/QRChallenge";
+import {Wrapper} from "./components/QRChallenge";
 import QScreenChallenge from './modules/qscreenchallenge-redo'; 
 
 function App() {
@@ -21,7 +22,8 @@ function App() {
           <Route path="/game" element={canContinue ? <GamePage /> : <Navigate replace to="/quiz" />} />
           <Route path="/jump-game" element={canContinue ? <QScreenChallenge /> : <Navigate replace to="/quiz" />} />
           <Route path="/pet" element={canContinue ? <PetPage /> : <Navigate replace to="/quiz" />} />
-          <Route path="/qr-game" element={canContinue ? <QRChallenge /> : <Navigate replace to="/quiz" />} />
+          <Route path="/qr-game" element={canContinue ? <Wrapper><QRChallenge/></Wrapper> : <Navigate replace to="/quiz" />} />
+          <Route path="/game-comp" element={canContinue ? <GameCompPage /> : <Navigate replace to="/quiz" />} />
           {/* The quiz page is accessible to everyone */}
           <Route path="/quiz" element={<QuizPage />} />
           {/* Add more routes as needed */}
