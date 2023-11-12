@@ -22,7 +22,7 @@ function App() {
           <Route path="/game" element={canContinue ? <GamePage /> : <Navigate replace to="/quiz" />} />
           <Route path="/jump-game" element={canContinue ? <QScreenChallenge /> : <Navigate replace to="/quiz" />} />
           <Route path="/pet" element={canContinue ? <PetPage /> : <Navigate replace to="/quiz" />} />
-          <Route path="/qr-game" element={canContinue ? <Wrapper><QRChallenge/></Wrapper> : <Wrapper><QRChallenge/></Wrapper>} />
+          <Route path="/qr-game" element={canContinue ? <Wrapper><QRChallenge/></Wrapper> : <Navigate replace to="/quiz" />} />
           <Route path="/game-comp" element={canContinue ? <GameCompPage /> : <Navigate replace to="/quiz" />} />
           {/* The quiz page is accessible to everyone */}
           <Route path="/quiz" element={<QuizPage />} />
