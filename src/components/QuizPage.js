@@ -245,7 +245,7 @@ const Quiz = () => {
 
   const toLogin = () => {
     console.log("to login")
-    setCurrentStep(12)
+    setCurrentStep(13)
   }
 
   const stepBack = () => {
