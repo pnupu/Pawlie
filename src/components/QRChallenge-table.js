@@ -22,7 +22,7 @@ const challenges = {
   12: {
     id: "12",
     title: "Free Challenge",
-    score: [5],
+    score: [25],
     end: ["12"],
   }
 }
@@ -75,7 +75,11 @@ function QRChallenge({whereToFind, onFound, fromSignIn}) {
               }
               
               
+              if(score === 0) {
+
+              
               newScore = newScore || score + rewardedScore;
+
               if (newScore !== score) {
                 toast.success(`You have completed the challenge and earned ${rewardedScore} points!`);
                 setCompleted(true);
@@ -83,7 +87,6 @@ function QRChallenge({whereToFind, onFound, fromSignIn}) {
                 toast("You have completed the challenge, but you did not earn any points, as the time ran out 😩")
                 setCompleted(true);
               }
-
               if (localStorage.getItem('qrScore') == null) {
                 localStorage.setItem('qrScore', newScore);
               }
@@ -128,15 +131,13 @@ function QRChallenge({whereToFind, onFound, fromSignIn}) {
 
               
               
-              setScore(newScore);
-              setTimeout(() => {
+                setScore(newScore);
                 clearInterval(intervalId);
                 setIntervalId(null);
                 setCurrChallenge(null);
                 setCountdown(null);
                 setStartTime(null);
-              }, 1000);
-
+              }
               return;     
             } else if (currChallenge && !currChallenge?.end.includes(result.toString()) && currChallenge?.id !==  result.toString()) {
               alert("Almost there, but this QR code is not part of the current challenge")
