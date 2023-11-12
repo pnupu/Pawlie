@@ -132,7 +132,7 @@
 
 <body>
     <div
-        style="display: flex; height: 100vh; flex-direction: column; justify-content: center; align-items: center; gap: 10px;">
+        style="display: flex; height: 90vh; flex-direction: column; justify-content: center; align-items: center; gap: 10px;">
         <div style="display: none;" id="countdownContainer" class="countdown-container">
             <div class="countdown-bar" id="countdown-bar"></div>
         </div>
@@ -372,6 +372,8 @@
             gameActive = false;
             canvas.style.display = 'block';
 
+
+
             if (localStorage.getItem('jumpScore') && parseInt(localStorage.getItem('jumpScore')) < score) { // This could be a mistake
                 localStorage.setItem('jumpScore', score);
             }
@@ -381,7 +383,7 @@
             }
 
             //Send score to database if user is defined
-            if(localStorage.getItem('user') && score > localStorage.getItem('jumpScore')){
+            if (localStorage.getItem('user') && score >= localStorage.getItem('jumpScore')) {
                 let user = JSON.parse(localStorage.getItem('user'));
                 let data = {
                     highScores: {
