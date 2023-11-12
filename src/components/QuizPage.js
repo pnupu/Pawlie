@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import axios from 'axios';
 import './quiz.css';
+import { motion, AnimatePresence } from 'framer-motion';
 import QScreen1 from "../modules/qscreen1";
 import QScreen2 from "../modules/qscreen2";
 import QScreen3 from "../modules/qscreen3";
@@ -14,6 +15,12 @@ import QScreenChallenge from "../modules/qscreenchallenge";
 import QScreenResults from "../modules/qscreenresults";
 
 import 'tailwindcss/tailwind.css';
+
+const containerVariants = {
+  hidden: { opacity: 0 },
+  visible: { opacity: 1 },
+  exit: { opacity: 0 }
+};
 
 
 const Quiz = () => {
@@ -273,11 +280,33 @@ const Quiz = () => {
       className="min-h-screen p-3 md:p-4 flex flex-col justify-center"
     >
 
-        <div className="container mx-auto max-w-5xl">
-        <div className="relative overflow-hidden bg-white rounded-2xl px-4 py-8 md:p-16">
-          {renderScreen()}
-        </div>
-      </div>
+        <AnimatePresence mode='wait'>
+        <motion.div
+          key={currentStep}
+          variants={containerVariants}
+          initial="hidden"
+          animate="visible"
+          exit="exit"
+          transition={{ duration: 0.5 }}
+          className="container mx-auto max-w-5xl"
+        >
+          <div className="relative overflow-hidden bg-white rounded-2xl px-4 py-8 md:p-16">
+            {/* Conditionally render your screen components based on the current step */}
+            {currentStep === 1 && <QScreen1 nextStep={nextStep} />}
+            {currentStep === 2 && <QScreen2 nextStep={nextStep} prevStep={prevStep} />}
+            {currentStep === 3 && <QScreen3 nextStep={nextStep} prevStep={prevStep} />}
+            {currentStep === 4 && <QScreen4 nextStep={nextStep} />}
+            {currentStep === 5 && <QScreenLoading nextStep={nextStep} />}
+            {currentStep === 6 && <QScreen5 nextStep={nextStep} prevStep={prevStep} />}
+            {currentStep === 7 && <QScreen6 nextStep={nextStep} prevStep={prevStep} />}
+            {currentStep === 8 && <QScreen7 nextStep={nextStep} prevStep={prevStep} />}
+            {currentStep === 9 && <QScreen8 nextStep={nextStep} prevStep={prevStep} />}
+            {currentStep === 10 && <QScreenChallenge nextStep={nextStep} />}
+            {currentStep === 11 && <QScreenResults nextStep={nextStep} />}
+            {/* Add your other steps as needed */}
+          </div>
+        </motion.div>
+      </AnimatePresence>
       
     {/* Overlay for the modal */}
     {isModalOpen && (
