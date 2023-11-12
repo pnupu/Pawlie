@@ -229,33 +229,45 @@ const Quiz = () => {
   }
 
   const renderScreen = () => {
-    switch (currentStep) {
-      case 1:
-        return <QScreen1 nextStep={nextStep} />;
-      case 2:
-        return <QScreen2 nextStep={nextStep} prevStep={prevStep} />;
-      case 3:
-        return <QScreen3 nextStep={nextStep} prevStep={prevStep} />;
-      case 4:
-        return <QScreen4 toggleModal={toggleModal} nextStep={nextStep}/>;
-      case 5:
-        return <QScreenLoading nextStep={nextStep}/>;
-      case 6:
-        return <QScreen5 nextStep={nextStep} prevStep={prevStep} localimageurl={localimageurl}/>;
-      case 7:
-        return <QScreen6 nextStep={nextStep} prevStep={prevStep} />;
-      case 8:
-        return <QScreen7 nextStep={nextStep} prevStep={prevStep} />;
-      case 9:
-        return <QScreen8 nextStep={nextStep} prevStep={prevStep} />;
-      case 10:
-          return <QScreenChallenge nextStep={nextStep} />;
-      case 11:
-          return <QScreenResults localimageurl={localimageurl} />;
-      default:
-        return <QScreen1 nextStep={nextStep} prevStep={prevStep} />;
-    }
-  };
+  return (
+    <>
+      <div style={{ display: currentStep === 1 ? 'block' : 'none' }}>
+        <QScreen1 nextStep={nextStep} />
+      </div>
+      <div style={{ display: currentStep === 2 ? 'block' : 'none' }}>
+        <QScreen2 nextStep={nextStep} prevStep={prevStep} />
+      </div>
+      <div style={{ display: currentStep === 3 ? 'block' : 'none' }}>
+        <QScreen3 nextStep={nextStep} prevStep={prevStep} />
+      </div>
+      <div style={{ display: currentStep === 4 ? 'block' : 'none' }}>
+        <QScreen4 toggleModal={toggleModal} nextStep={nextStep} />
+      </div>
+      <div style={{ display: currentStep === 5 ? 'block' : 'none' }}>
+        <QScreenLoading nextStep={nextStep} />
+      </div>
+      <div style={{ display: currentStep === 6 ? 'block' : 'none' }}>
+        <QScreen5 nextStep={nextStep} prevStep={prevStep} localimageurl={localimageurl} />
+      </div>
+      <div style={{ display: currentStep === 7 ? 'block' : 'none' }}>
+        <QScreen6 nextStep={nextStep} prevStep={prevStep} />
+      </div>
+      <div style={{ display: currentStep === 8 ? 'block' : 'none' }}>
+        <QScreen7 nextStep={nextStep} prevStep={prevStep} />
+      </div>
+      <div style={{ display: currentStep === 9 ? 'block' : 'none' }}>
+        <QScreen8 nextStep={nextStep} prevStep={prevStep} />
+      </div>
+      <div style={{ display: currentStep === 10 ? 'block' : 'none' }}>
+        <QScreenChallenge nextStep={nextStep} />
+      </div>
+      <div style={{ display: currentStep === 11 ? 'block' : 'none' }}>
+        <QScreenResults nextStep={nextStep} localimageurl={localimageurl} />
+      </div>
+    </>
+  );
+};
+
 
   return (
     <div
