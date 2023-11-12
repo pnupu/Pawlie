@@ -39,13 +39,6 @@ function CampaignScreen() {
           challengeName="Jump Game"
         />
 
-//         <ChallengeCard
-//           type="active"
-//           challengeName=""
-//           onStart={() => {
-//             navigate("/qr-game")
-//           }}
-//         />
 
         <ChallengeCard
           type={user?.highScores?.game2 > 0 ? "completed" : "active"}
