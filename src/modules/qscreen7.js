@@ -2,13 +2,11 @@ function QScreen7({ nextStep}) {
   return (
       <div className="flex flex-col items-center">
         <h2 className="text-3xl md:text-5xl font-black uppercase text-center mb-8 max-w-2xl">
-          Conquer Challenges, Reap Rewards!
+          Pawlies are smart
         </h2>
         <img src="/challenges-min.jpg" className="max-w-2xl w-full"></img>
         <p className="text-lg md:text-xl text-dark-secondary text-center mt-8 max-w-2xl">
-          Dive into a variety of fun challenges to collect points. Each success
-          not only boosts your fitness but also propels you and Pawlie to exciting
-          new heights, unlocking amazing rewards!
+          See your activities autodetected. Pawlie detects 5 activity types from phones and up to 18 from if you have a compatible wearable.
         </p>
   
         <div className="flex gap-4 items-center mt-8">

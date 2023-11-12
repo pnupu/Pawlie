@@ -66,7 +66,7 @@ function QScreenResults({localimageurl, nextStep}) {
 
       <div className="mt-12">
         <h2 className="text-3xl md:text-5xl font-black uppercase text-center mb-2 max-w-2xl mx-auto">
-          Complete Signup and Train Together!
+          Save results and see full app!
         </h2>
         <div className="grid gap-6 md:grid-cols-3 my-8">
           <div
@@ -88,10 +88,10 @@ function QScreenResults({localimageurl, nextStep}) {
               />
             </svg>
             <p className=" uppercase font-bold text-[#2198F3]">
-              Personal goals
+              Autodetect
             </p>
             <p className="font-medium">
-              Train with Pawlie, complete challenges, and level-up.
+              See your Pawlie develop based on your lifestyle.
             </p>
           </div>
           <div
@@ -133,9 +133,9 @@ function QScreenResults({localimageurl, nextStep}) {
               />
             </svg>
 
-            <p className=" uppercase font-bold text-[#FF5E3A]">Your Pawlie</p>
+            <p className=" uppercase font-bold text-[#FF5E3A]">Maintain streaks</p>
             <p className="font-medium">
-              Evolve your Pawlie with every fitness milestone
+              Consistant good behaviour is rewarded with streaks.
             </p>
           </div>
           <div
@@ -159,9 +159,9 @@ function QScreenResults({localimageurl, nextStep}) {
               />
             </svg>
 
-            <p className=" uppercase font-bold text-[#E6B600]">Community</p>
+            <p className=" uppercase font-bold text-[#E6B600]">Belong</p>
             <p className="font-medium">
-              Compete and connect on our motivating leaderboards
+              Show up and share your collection of rare items with friends.
             </p>
           </div>
         </div>
