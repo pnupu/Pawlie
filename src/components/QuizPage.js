@@ -1,7 +1,6 @@
 import React, { useState } from 'react';
 import axios from 'axios';
 import './quiz.css';
-import { motion, AnimatePresence } from 'framer-motion';
 import QScreen1 from "../modules/qscreen1";
 import QScreen2 from "../modules/qscreen2";
 import QScreen3 from "../modules/qscreen3";
@@ -15,12 +14,6 @@ import QScreenChallenge from "../modules/qscreenchallenge";
 import QScreenResults from "../modules/qscreenresults";
 
 import 'tailwindcss/tailwind.css';
-
-const containerVariants = {
-  hidden: { opacity: 0 },
-  visible: { opacity: 1 },
-  exit: { opacity: 0 }
-};
 
 
 const Quiz = () => {
@@ -232,45 +225,33 @@ const Quiz = () => {
   }
 
   const renderScreen = () => {
-  return (
-    <>
-      <div style={{ display: currentStep === 1 ? 'block' : 'none' }}>
-        <QScreen1 nextStep={nextStep} />
-      </div>
-      <div style={{ display: currentStep === 2 ? 'block' : 'none' }}>
-        <QScreen2 nextStep={nextStep} prevStep={prevStep} />
-      </div>
-      <div style={{ display: currentStep === 3 ? 'block' : 'none' }}>
-        <QScreen3 nextStep={nextStep} prevStep={prevStep} />
-      </div>
-      <div style={{ display: currentStep === 4 ? 'block' : 'none' }}>
-        <QScreen4 toggleModal={toggleModal} nextStep={nextStep} />
-      </div>
-      <div style={{ display: currentStep === 5 ? 'block' : 'none' }}>
-        <QScreenLoading nextStep={nextStep} />
-      </div>
-      <div style={{ display: currentStep === 6 ? 'block' : 'none' }}>
-        <QScreen5 nextStep={nextStep} prevStep={prevStep} localimageurl={localimageurl} />
-      </div>
-      <div style={{ display: currentStep === 7 ? 'block' : 'none' }}>
-        <QScreen6 nextStep={nextStep} prevStep={prevStep} />
-      </div>
-      <div style={{ display: currentStep === 8 ? 'block' : 'none' }}>
-        <QScreen7 nextStep={nextStep} prevStep={prevStep} />
-      </div>
-      <div style={{ display: currentStep === 9 ? 'block' : 'none' }}>
-        <QScreen8 nextStep={nextStep} prevStep={prevStep} />
-      </div>
-      <div style={{ display: currentStep === 10 ? 'block' : 'none' }}>
-        <QScreenChallenge nextStep={nextStep} />
-      </div>
-      <div style={{ display: currentStep === 11 ? 'block' : 'none' }}>
-        <QScreenResults nextStep={nextStep} localimageurl={localimageurl} />
-      </div>
-    </>
-  );
-};
-
+    switch (currentStep) {
+      case 1:
+        return <QScreen1 nextStep={nextStep} />;
+      case 2:
+        return <QScreen2 nextStep={nextStep} prevStep={prevStep} />;
+      case 3:
+        return <QScreen3 nextStep={nextStep} prevStep={prevStep} />;
+      case 4:
+        return <QScreen4 toggleModal={toggleModal} nextStep={nextStep}/>;
+      case 5:
+        return <QScreenLoading nextStep={nextStep}/>;
+      case 6:
+        return <QScreen5 nextStep={nextStep} prevStep={prevStep} localimageurl={localimageurl}/>;
+      case 7:
+        return <QScreen6 nextStep={nextStep} prevStep={prevStep} />;
+      case 8:
+        return <QScreen7 nextStep={nextStep} prevStep={prevStep} />;
+      case 9:
+        return <QScreen8 nextStep={nextStep} prevStep={prevStep} />;
+      case 10:
+          return <QScreenChallenge nextStep={nextStep} />;
+      case 11:
+          return <QScreenResults nextStep={nextStep}  localimageurl={localimageurl} />;
+      default:
+        return <QScreen1 nextStep={nextStep} prevStep={prevStep} />;
+    }
+  };
 
   return (
     <div
@@ -280,33 +261,11 @@ const Quiz = () => {
       className="min-h-screen p-3 md:p-4 flex flex-col justify-center"
     >
 
-        <AnimatePresence mode='wait'>
-        <motion.div
-          key={currentStep}
-          variants={containerVariants}
-          initial="hidden"
-          animate="visible"
-          exit="exit"
-          transition={{ duration: 0.5 }}
-          className="container mx-auto max-w-5xl"
-        >
-          <div className="relative overflow-hidden bg-white rounded-2xl px-4 py-8 md:p-16">
-            {/* Conditionally render your screen components based on the current step */}
-            {currentStep === 1 && <QScreen1 nextStep={nextStep} />}
-            {currentStep === 2 && <QScreen2 nextStep={nextStep} prevStep={prevStep} />}
-            {currentStep === 3 && <QScreen3 nextStep={nextStep} prevStep={prevStep} />}
-            {currentStep === 4 && <QScreen4 nextStep={nextStep} />}
-            {currentStep === 5 && <QScreenLoading nextStep={nextStep} />}
-            {currentStep === 6 && <QScreen5 nextStep={nextStep} prevStep={prevStep} />}
-            {currentStep === 7 && <QScreen6 nextStep={nextStep} prevStep={prevStep} />}
-            {currentStep === 8 && <QScreen7 nextStep={nextStep} prevStep={prevStep} />}
-            {currentStep === 9 && <QScreen8 nextStep={nextStep} prevStep={prevStep} />}
-            {currentStep === 10 && <QScreenChallenge nextStep={nextStep} />}
-            {currentStep === 11 && <QScreenResults nextStep={nextStep} />}
-            {/* Add your other steps as needed */}
-          </div>
-        </motion.div>
-      </AnimatePresence>
+        <div className="container mx-auto max-w-5xl">
+        <div className="relative overflow-hidden bg-white rounded-2xl px-4 py-8 md:p-16">
+          {renderScreen()}
+        </div>
+      </div>
       
     {/* Overlay for the modal */}
     {isModalOpen && (
