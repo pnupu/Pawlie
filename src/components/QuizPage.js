@@ -85,27 +85,37 @@ const Quiz = () => {
     
   
     return (
-      <div>
-        <input type="file" accept="image/*" onChange={handleImageChange} />
-        <button onClick={uploadImageToServer} disabled={uploading}>
-          {uploading ? 'Uploading...' : 'Upload Image'}
-        </button>
-        {imageDataUrl && <img src={imageDataUrl} alt="Preview" />}
+      <div className="flex flex-col items-center justify-center space-y-4 p-4">
+        <input 
+          className="file:mr-4 file:py-2 file:px-4 
+                     file:rounded-full file:border-0 
+                     file:text-sm file:font-semibold 
+                     file:bg-violet-50 file:text-violet-700 
+                     hover:file:bg-violet-100"
+          type="file" 
+          accept="image/*" 
+          onChange={handleImageChange} 
+        />
         {imageDataUrl && (
-        <button
-          onClick={uploadImageToServer}
-          disabled={uploading}
-          className={`${
-            uploading
-              ? 'bg-blue-400 text-white font-bold py-2 px-4 rounded opacity-50 cursor-not-allowed'
-              : 'bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded'
-          } transition ease-in-out duration-150`}
-        >
-          {uploading ? 'Uploading...' : 'Upload'}
-        </button>
-      )}
+          <img 
+            className="max-w-xs rounded shadow-lg" 
+            src={imageDataUrl} 
+            alt="Preview" 
+          />
+        )}
+        {imageDataUrl && (
+          <button
+            onClick={uploadImageToServer}
+            disabled={uploading}
+            className={`text-white font-bold py-2 px-4 rounded transition ease-in-out duration-150 
+                        ${uploading ? 'bg-blue-400 opacity-50 cursor-not-allowed' : 'bg-blue-500 hover:bg-blue-700'}`}
+          >
+            {uploading ? 'Uploading...' : 'Upload'}
+          </button>
+        )}
       </div>
     );
+    
   };
   
   const parseApiDataToImage = (apiData, delay) => {
