@@ -25,6 +25,11 @@ const LeaderboardListItem = ({ name, points, highscore, position, src }) => {
     },
   };
 
+  const positionStyle = {
+    width: '1em', // Set a fixed width sufficient for two characters
+    display: 'inline-block', // Use inline-block for width to take effect
+    textAlign: 'center', // Center the text to handle one or two digit numbers uniformly
+  };
   // Determine the style based on the position
   let style;
   switch (position) {
@@ -44,7 +49,7 @@ const LeaderboardListItem = ({ name, points, highscore, position, src }) => {
 
   return (
     <div className="flex gap-4 items-center">
-      <span className="text-dark">{position}</span>
+      <span className="text-dark" style={positionStyle}>{position}</span>
       <div
         className={`flex flex-grow border-2 rounded-lg overflow-hidden items-center`}
         style={{
