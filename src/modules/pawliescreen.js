@@ -5,6 +5,8 @@ function PawlieScreen() {
   const [user, setUser] = useState(null);
   const videoRef = useRef(null);
   const [isZoomed, setIsZoomed] = useState(false);
+  const [score, setScore] = useState(0);
+  const [stars, setStars] = useState(0);
   useEffect(() => {
     // Load the user from localStorage when the component mounts
     const loadedUser = localStorage.getItem("user");
@@ -12,9 +14,27 @@ function PawlieScreen() {
       setUser(JSON.parse(loadedUser));
       console.log("User loaded from localStorage!");
       console.log(JSON.parse(loadedUser));
+      setScore(calculateTotalScore(JSON.parse(loadedUser).highScores))
+      setStars(calculateStars(JSON.parse(loadedUser).highScores))
     }
   }, []);
 
+  const calculateTotalScore = (highScores) => {
+    return Object.values(highScores).reduce((total, score) => total + score, 0);
+  };
+  const calculateStars = (highScores) => {
+    let stars = 0;
+    Object.values(highScores).forEach(score => {
+      if (score >= 10) {
+        // One star for reaching 10 points
+        stars += 1;
+        // Additional stars for each 10 points over the initial 10
+        stars += Math.floor((score - 10) / 10);
+      }
+    });
+    return stars;
+  };
+  
   const handleMouseDown = () => {
     if (videoRef.current) {
       videoRef.current.playbackRate = 3;
@@ -172,7 +192,7 @@ const videoClassNames = `max-w-full h-auto transition-transform duration-300 eas
             </svg>
 
             <p className="uppercase font-bold text-[#E6B600]">Points Scored</p>
-            <p className="font-bold text-4xl">456</p>
+            <p className="font-bold text-4xl">{score}</p>
           </div>
           <div
             style={{
@@ -200,7 +220,7 @@ const videoClassNames = `max-w-full h-auto transition-transform duration-300 eas
             <p className=" uppercase font-bold text-[#FF5E3A]">
               Stars Collected
             </p>
-            <p className="font-bold text-4xl">24</p>
+            <p className="font-bold text-4xl">{stars}</p>
           </div>
           <div
             style={{
@@ -224,7 +244,7 @@ const videoClassNames = `max-w-full h-auto transition-transform duration-300 eas
             </svg>
 
             <p className=" uppercase font-bold text-[#950DFF]">Days Streak</p>
-            <p className="font-bold text-4xl">3</p>
+            <p className="font-bold text-4xl">1</p>
           </div>
         </div>
       </div>
