@@ -5,13 +5,12 @@ function QScreen4({ nextStep, toggleModal }) {
         Now, Let’s Bring Your Pawlie to Life!
       </h2>
       <p className="text-lg md:text-xl text-dark-secondary text-center mt-6 mb-8 max-w-md">
-        Snap a photo, and we'll magically create a Pawlie that mirrors your
-        style!
+        Snap a photo! Your Pawlie will look like you, and mirror your style!
       </p>
       <div className="grid gap-6 grid-cols-1 md:grid-cols-1 w-full">
         <div className="overflow-hidden relative rounded-xl bg-[#F4F8FF] min-h flex flex-col items-center pt-12 min-h-[400px]">
           <button className="text-lg font-medium text-center px-8 py-3 bg-primary hover:bg-primary-hover rounded-full text-white transition-all" onClick={() => toggleModal()}>
-            Upload a photo
+            Select image
           </button>
           <img
             src="/locked-avatar-min.png"

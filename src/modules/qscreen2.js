@@ -37,7 +37,7 @@ function QScreen2({ nextStep, prevStep}) {
   return (
     <div className="flex flex-col items-center">
       <h2 className="text-3xl md:text-5xl font-black uppercase text-center mb-6 max-w-4xl">
-        What's your biggest challenge in staying active?
+        Pick your sport persona
       </h2>
 
       <div className="flex flex-wrap gap-4 mb-8 justify-center">
@@ -45,19 +45,19 @@ function QScreen2({ nextStep, prevStep}) {
           style={isActiveFirst ? activeStyle : inactiveStyle}
           onClick={toggleActiveFirst}
         >
-          😥 Lack of motivation
+          😥 Scoobie noobie
         </div>
         <div
           style={isActiveSecond ? activeStyle : inactiveStyle}
           onClick={toggleActiveSecond}
         >
-          🥸 No fun in exercise
+          🥸 Your average joe
         </div>
         <div
           style={isActiveThird ? activeStyle : inactiveStyle}
           onClick={toggleActiveThird}
         >
-          ⁉️ Don't know where to start
+           David Goggings, they don't know me son!
         </div>
       </div>
       <div className="flex gap-4 items-center">
