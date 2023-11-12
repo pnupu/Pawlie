@@ -74,10 +74,14 @@ function QRChallenge({whereToFind, onFound, fromSignIn}) {
               
               newScore = newScore || score + rewardedScore;
               if (newScore !== score) {
-                toast.success(`You have completed the challenge and earned ${rewardedScore} points!`);
+                toast.success(`You have completed the challenge and earned ${rewardedScore} points!`, {
+                  duration: 5000
+                });
                 setCompleted(true);
               } else {
-                toast("You have completed the challenge, but you did not earn any points, as the time ran out 😩")
+                toast("You have completed the challenge, but you did not earn any points, as the time ran out 😩", {
+                  duration: 5000
+                })
                 setCompleted(true);
               }
               

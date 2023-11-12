@@ -31,6 +31,7 @@ function CampaignScreen() {
             if (isMobile) {
               toast("Please use your laptop to play this game.", {
                 icon: '💻',
+                duration: 5000,
               })
               return
             }
