@@ -1,0 +1,28 @@
+
+.video-container {
+  display: flex;
+  z-index: 1; /* Make sure this is higher than the z-index of `hovering-modals` */
+  position: relative;
+  justify-content: center;
+  align-items: center;
+  height: 100%; 
+  width: 100%;
+}
+
+.video-element {
+  max-width: 100%; 
+  height: auto; 
+  transition: transform 0.3s; 
+}
+
+.is-zoomed {
+  transform: scale(1.25); 
+}
+#pawlie-modal {
+  /* Ensure the video container does not push the video too low */
+  margin-top: 0; /* Adjust this value as needed */
+  display: flex;
+  justify-content: center; /* This will center the video vertically in the container */
+  align-items: center; /* This will center the video horizontally in the container */
+  height: auto; /* Or set a specific height if you want to control the container's size */
+}

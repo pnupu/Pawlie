@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useState } from 'react';
 import axios from 'axios';
 import './quiz.css';
 import QScreen1 from "../modules/qscreen1";
@@ -19,7 +19,6 @@ import 'tailwindcss/tailwind.css';
 const Quiz = () => {
   const [currentStep, setCurrentStep] = useState(1);
   const [isModalOpen, setIsModalOpen] = useState(false);
-  const [apiResponse, setApiResponse] = useState({});
   const [localimageurl, setLocalImageUrl] = useState("rabbits/rabbit_no_female_medium.png");
   const ImageUploader = () => {
     const [uploading, setUploading] = useState(false);
@@ -108,7 +107,7 @@ const Quiz = () => {
     );
   };
   
-  const parseApiDataToImage = (apiData) => {
+  const parseApiDataToImage = (apiData, delay) => {
     const parts = apiData.toLowerCase().replace(/\.$/, "").split(', ');
     let imageurl = ""
     const glassesOrNo = parts[0] || "no"
@@ -166,8 +165,11 @@ const Quiz = () => {
     }
     //Store imageurl in local storage
     localStorage.setItem('localimageurl', JSON.stringify(imageurl));
+    setLocalImageUrl(imageurl)
     console.log(imageurl)
-    nextStep();
+    setTimeout(()=> {
+      nextStep();
+    }, delay || 0)
     return imageurl
   }
   function GetApiData(url) {
@@ -193,7 +195,6 @@ const Quiz = () => {
           }
         });
   
-        setApiResponse(JSON.stringify(response.data.choices[0], null, 2));
         console.log(response.data.choices[0].message.content)
         localStorage.setItem('chatgpt', JSON.stringify(response.data.choices[0].message.content));
         setLocalImageUrl(parseApiDataToImage(response.data.choices[0].message.content));
@@ -213,9 +214,8 @@ const Quiz = () => {
 
   const nextStep = (skip) => {
     if(currentStep === 4 && skip === true){
-      setTimeout(() => {
-        nextStep();
-      }, 3000);
+      parseApiDataToImage("", 2000);
+
     }
     setCurrentStep((prevStep) => (prevStep < 11 ? prevStep + 1 : prevStep));
   };
