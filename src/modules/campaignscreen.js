@@ -1,9 +1,12 @@
 import React, { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import ChallengeCard from "./ChallengeCard";
+import toast, { Toaster }from 'react-hot-toast';
+
 
 function CampaignScreen() {
   const navigate = useNavigate(); // This hook allows you to navigate programmatically
+    const isMobile = navigator.userAgentData.mobile;
 
   const [user, setUser] = useState(null);
   useEffect(() => {
@@ -14,7 +17,6 @@ function CampaignScreen() {
       console.log("User loaded from localStorage!");
       console.log(JSON.parse(loadedUser));
     }
-    // If there's no user in localStorage, you might want to handle that case here
   }, []);
 
 
@@ -25,9 +27,25 @@ function CampaignScreen() {
       <div id="content" className="flex flex-col gap-5 flex-grow ">
         <ChallengeCard
           type="completed"
-          onStart={() => navigate("/jump-game")}
-          challengeName="Intro"
+          onStart={() => {
+            if (isMobile) {
+              toast("Please use your laptop to play this game.", {
+                icon: '💻',
+              })
+              return
+            }
+            navigate("/jump-game")
+          }}
+          challengeName="Jump Game"
         />
+
+//         <ChallengeCard
+//           type="active"
+//           challengeName=""
+//           onStart={() => {
+//             navigate("/qr-game")
+//           }}
+//         />
 
         <ChallengeCard
           type={user?.highScores?.game2 > 0 ? "completed" : "active"}
@@ -70,6 +88,7 @@ function CampaignScreen() {
         <ChallengeCard type="disabled" challengeName="Challenge 9" />
         <ChallengeCard type="disabled" challengeName="Challenge 10" />
       </div>
+      <Toaster/>
     </div>
   );
 }

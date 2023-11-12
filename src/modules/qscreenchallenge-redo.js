@@ -1,8 +1,6 @@
 import { useEffect, useState } from "react";
 
 function QScreenChallenge() {
-
-
   return (
     <div className="flex flex-col items-center">
       <h2 className="text-3xl md:text-5xl font-black uppercase text-center mb-8 max-w-2xl">

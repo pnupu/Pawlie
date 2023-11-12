@@ -371,7 +371,8 @@
         function endGame(net, ctx, score, canvas) {
             gameActive = false;
             canvas.style.display = 'block';
-            if (localStorage.getItem('jumpScore') && parseInt(localStorage.getItem('jumpScore')) > score) {
+
+            if (localStorage.getItem('jumpScore') && parseInt(localStorage.getItem('jumpScore')) < score) { // This could be a mistake
                 localStorage.setItem('jumpScore', score);
             }
 
