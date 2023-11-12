@@ -7,12 +7,13 @@ import PetPage from './components/PetPage'; // Your pet page component
 import QuizPage from './components/QuizPage'; // Your quiz page component
 import QRChallenge from "./components/QRChallenge";
 import {Wrapper} from "./components/QRChallenge";
-import QScreenChallenge from './modules/qscreenchallenge-redo'; 
+import QScreenChallenge from './modules/qscreenchallenge-redo';
+
 
 function App() {
   //If user is defined in the local storage, then we can continue /home
-  const canContinue = localStorage.getItem("user") !== null;
-  
+  let canContinue = localStorage.getItem("user") !== null;
+  console.log(canContinue);
   return (
     <BrowserRouter>
       <div className="min-h-screen bg-gray-100">
@@ -24,8 +25,9 @@ function App() {
           <Route path="/pet" element={canContinue ? <PetPage /> : <Navigate replace to="/quiz" />} />
           <Route path="/qr-game" element={canContinue ? <Wrapper><QRChallenge/></Wrapper> : <Navigate replace to="/quiz" />} />
           <Route path="/game-comp" element={canContinue ? <GameCompPage /> : <Navigate replace to="/quiz" />} />
-          {/* The quiz page is accessible to everyone */}
-          <Route path="/quiz" element={<QuizPage />} />
+          {/* The quiz page should not be accessable*/}
+          <Route path="/quiz" element={!canContinue ? <QuizPage /> : <Navigate replace to="/" />}
+          />          
           {/* Add more routes as needed */}
         </Routes>
       </div>

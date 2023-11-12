@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 
 
-function QScreenResults({localimageurl, nextStep}) {
+function QScreenResults({localimageurl}) {
   const [name, setName] = useState('');
   const [number, setNumber] = useState('');
   const navigate = useNavigate(); // This hook allows you to navigate programmatically
@@ -37,8 +37,9 @@ function QScreenResults({localimageurl, nextStep}) {
         const newUser = await response.json();
         console.log("New user created:", newUser);
         //Store user in local storage
-        localStorage.setItem('user', JSON.stringify(newUser));
+        localStorage.setItem('user', JSON.stringify(newUser))
         navigate("/");
+        window.location.reload()
         // Here you might want to do something upon successful user creation
       } else {
         // If the server response is not ok, handle errors

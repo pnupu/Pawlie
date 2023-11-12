@@ -77,7 +77,7 @@ function QScreenChallenge({nextStep}) {
       </div>
       {!isMobile && <div
         style={{
-          height: "80vh",
+          height: "60vh",
         }}
         className="overflow-hidden rounded-xl  w-full max-w-xl mt-4 mb-10"
       >
