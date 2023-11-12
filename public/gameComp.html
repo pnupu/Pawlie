@@ -7,80 +7,87 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.1/css/all.min.css">
     <title>Webcam Game</title>
     <style>
-            .container {
-        --uib-size: 60px;
-        --uib-color: black;
-        --uib-speed: 2.6s;
-        --uib-dot-size: calc(var(--uib-size) * 0.23);
-        position: relative;
-        display: flex;
-        align-items: center;
-        justify-content: space-between;
-        width: var(--uib-size);
-        height: var(--uib-dot-size);
-        filter: url('#uib-jelly-ooze');
-    }
-
-    .custom-button {
-        font-size: 1.125rem; /* equivalent to text-lg */
-        font-weight: 500; /* equivalent to font-medium */
-        text-align: center;
-        padding: 15px 32px; /* equivalent to px-8 py-3 */
-        background-color: #3BC527; /* replace with actual color value */
-        color: white;
-        border: none;
-        border-radius: 9999px; /* equivalent to rounded-full */
-        transition: all 0.3s ease;
-    }
-
-    .custom-button:hover {
-        background-color: #33B121; /* replace with actual color value */
-    }
-
-    .dot {
-        position: absolute;
-        top: calc(50% - var(--uib-dot-size) / 2);
-        left: calc(0px - var(--uib-dot-size) / 2);
-        display: block;
-        height: var(--uib-dot-size);
-        width: var(--uib-dot-size);
-        border-radius: 50%;
-        background-color: var(--uib-color);
-        animation: stream var(--uib-speed) linear infinite both;
-        transition: background-color 0.3s ease;
-    }
-
-    .dot:nth-child(2) {
-        animation-delay: calc(var(--uib-speed) * -0.2);
-    }
-
-    .dot:nth-child(3) {
-        animation-delay: calc(var(--uib-speed) * -0.4);
-    }
-
-    .dot:nth-child(4) {
-        animation-delay: calc(var(--uib-speed) * -0.6);
-    }
-
-    .dot:nth-child(5) {
-        animation-delay: calc(var(--uib-speed) * -0.8);
-    }
-
-    @keyframes stream {
-
-        0%,
-        100% {
-            transform: translateX(0) scale(0);
+        .container {
+            --uib-size: 60px;
+            --uib-color: black;
+            --uib-speed: 2.6s;
+            --uib-dot-size: calc(var(--uib-size) * 0.23);
+            position: relative;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            width: var(--uib-size);
+            height: var(--uib-dot-size);
+            filter: url('#uib-jelly-ooze');
         }
 
-        50% {
-            transform: translateX(calc(var(--uib-size) * 0.5)) scale(1);
+        .custom-button {
+            font-size: 1.125rem;
+            /* equivalent to text-lg */
+            font-weight: 500;
+            /* equivalent to font-medium */
+            text-align: center;
+            padding: 15px 32px;
+            /* equivalent to px-8 py-3 */
+            background-color: #3BC527;
+            /* replace with actual color value */
+            color: white;
+            border: none;
+            border-radius: 9999px;
+            /* equivalent to rounded-full */
+            transition: all 0.3s ease;
         }
 
-        99.999% {
-            transform: translateX(calc(var(--uib-size))) scale(0);
+        .custom-button:hover {
+            background-color: #33B121;
+            /* replace with actual color value */
         }
-    }
+
+        .dot {
+            position: absolute;
+            top: calc(50% - var(--uib-dot-size) / 2);
+            left: calc(0px - var(--uib-dot-size) / 2);
+            display: block;
+            height: var(--uib-dot-size);
+            width: var(--uib-dot-size);
+            border-radius: 50%;
+            background-color: var(--uib-color);
+            animation: stream var(--uib-speed) linear infinite both;
+            transition: background-color 0.3s ease;
+        }
+
+        .dot:nth-child(2) {
+            animation-delay: calc(var(--uib-speed) * -0.2);
+        }
+
+        .dot:nth-child(3) {
+            animation-delay: calc(var(--uib-speed) * -0.4);
+        }
+
+        .dot:nth-child(4) {
+            animation-delay: calc(var(--uib-speed) * -0.6);
+        }
+
+        .dot:nth-child(5) {
+            animation-delay: calc(var(--uib-speed) * -0.8);
+        }
+
+        @keyframes stream {
+
+            0%,
+            100% {
+                transform: translateX(0) scale(0);
+            }
+
+            50% {
+                transform: translateX(calc(var(--uib-size) * 0.5)) scale(1);
+            }
+
+            99.999% {
+                transform: translateX(calc(var(--uib-size))) scale(0);
+            }
+        }
+
         #video-container {
             height: 80vh;
             aspect-ratio: 9/16;
@@ -157,7 +164,9 @@
             <video id="webcam" autoplay playsinline></video>
             <canvas id="canvas"></canvas>
         </div>
+        
         <div id="endScreen" style="display: none; text-align: center;"></div>
+
         <button style="display: none;" id="startButton" class="custom-button">
             Start a Challenge
         </button>
@@ -196,7 +205,7 @@
                 document.getElementById('startButton').style.display = 'block';
                 document.getElementById('video-container').style.display = 'block';
                 document.getElementById('countdownContainer').style.display = 'block';
-                
+
                 document.getElementById('loader').style.display = 'none';
             }, 3000);
             const video = await setupWebcam();
@@ -218,6 +227,11 @@
             const countdownBar = document.getElementById('countdown-bar');
             let timeLeft = gameLength;
             let originalWidth = 100;
+
+            window.addTime = function (extraTime) {
+                timeLeft += extraTime;
+                if (timeLeft > gameLength) timeLeft = gameLength;
+            }
 
             const countdownInterval = setInterval(() => {
                 timeLeft--;
@@ -335,6 +349,7 @@
                 isChangingPreset = true;
 
                 if (!delayActive) {
+                    addTime(1); // Add 5 seconds to the timer
                     delayActive = true;
                     score++;
                     setTimeout(() => changePreset(video, canvas, ctx), delay);
@@ -372,8 +387,6 @@
             gameActive = false;
             canvas.style.display = 'block';
 
-
-
             if (localStorage.getItem('jumpScore') && parseInt(localStorage.getItem('jumpScore')) > score) {
                 localStorage.setItem('jumpScore', score);
             }
@@ -382,44 +395,12 @@
                 localStorage.setItem('jumpScore', score);
             }
 
-            //Send score to database if user is defined
-            if(localStorage.getItem('user') && score > localStorage.getItem('jumpScore')){
-                let user = JSON.parse(localStorage.getItem('user'));
-                let data = {
-                    highScores: {
-                        game1: score,
-                        game2: user.highScores.game2,
-                        game3: user.highScores.game3,
-                    },
-                }
-                fetch('https://server.getpawlie.com/users/'+ user.id +'/score', {
-                    method: 'PUT',
-                    headers: {
-                        'Content-Type': 'application/json'
-                    },
-                    body: JSON.stringify(data)
-                }).then(response => {
-                    if (response.ok) {
-                        return response.json();
-                    } else {
-                        throw new Error('Could not update high score');
-                    }
-                }).then(updatedUser => {
-                    console.log('High score updated:', updatedUser);
-                    // Optionally update the local storage with the new high score
-                    localStorage.setItem('user', JSON.stringify(updatedUser));
-                }).catch(error => {
-                    console.error('Error:', error);
-                });
-            }
-
             setTimeout(() => {
                 showEndScreen(net, ctx, score, canvas);
             }, 300);
         }
 
         function showEndScreen(net, ctx, score, canvas) {
-            // Hide all elements show play again button
             document.getElementById('video-container').style.display = 'none';
             document.getElementById('countdownContainer').style.display = 'none';
             document.getElementById('endScreen').style.display = 'block';

@@ -2,6 +2,7 @@
 import { BrowserRouter, Routes, Route, Navigate } from 'react-router-dom';
 import HomePage from './components/HomePage';
 import GamePage from './components/GamePage'; // Your game page component
+import GameCompPage from './components/GameCompPage'; // Your game page component
 import PetPage from './components/PetPage'; // Your pet page component
 import QuizPage from './components/QuizPage'; // Your quiz page component
 import QRChallenge from './components/QRChallenge'; // Your QR challenge component
