@@ -7,6 +7,8 @@ function PawlieScreen() {
   const [isZoomed, setIsZoomed] = useState(false);
   const [score, setScore] = useState(0);
   const [stars, setStars] = useState(0);
+  const [goals, setGoals] = useState(0);
+
   useEffect(() => {
     // Load the user from localStorage when the component mounts
     const loadedUser = localStorage.getItem("user");
@@ -16,12 +18,26 @@ function PawlieScreen() {
       console.log(JSON.parse(loadedUser));
       setScore(calculateTotalScore(JSON.parse(loadedUser).highScores))
       setStars(calculateStars(JSON.parse(loadedUser).highScores))
+      setGoals(calculateChallengesCompleted(JSON.parse(loadedUser).highScores))
     }
   }, []);
 
   const calculateTotalScore = (highScores) => {
     return Object.values(highScores).reduce((total, score) => total + score, 0);
   };
+
+  const calculateChallengesCompleted = (highScores) => {
+    let challengesCompleted = 0;
+    Object.values(highScores).forEach(score => {
+      if (score > 0) {
+        // Increment the count for each challenge with more than 0 points
+        challengesCompleted += 1;
+      }
+    });
+    return challengesCompleted;
+  };
+  
+
   const calculateStars = (highScores) => {
     let stars = 0;
     Object.values(highScores).forEach(score => {
@@ -167,9 +183,9 @@ const videoClassNames = `max-w-full h-auto transition-transform duration-300 eas
             </svg>
 
             <p className=" uppercase font-bold text-[#2198F3]">
-              Completed Goals
+              Completed challenges
             </p>
-            <p className="font-bold text-4xl">12</p>
+            <p className="font-bold text-4xl">{goals}</p>
           </div>
           <div
             style={{
