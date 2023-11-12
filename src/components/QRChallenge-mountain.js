@@ -134,7 +134,7 @@ function QRChallenge({whereToFind, onFound, fromSignIn}) {
 
         
 
-        <div className='text-lg md:text-xl mx-auto text-dark-secondary text-center mb-8 max-w-xl' style={{fontSize: 30}}>Find the starting qr-code from the botton of the stairs</div>
+        <div className='text-lg md:text-xl mx-auto text-dark-secondary text-center mb-8 max-w-xl' style={{fontSize: 30}}>Find the starting qr-code from the bottom of the stairs</div>
         <div className='text-lg md:text-xl mx-auto text-dark-secondary text-center mb-8 max-w-xl' style={{fontSize: 20}}>Points: {score}</div>
         {fromSignIn && completed && <button className="text-lg self-center font-medium text-center px-8 py-3 bg-primary hover:bg-primary-hover rounded-full text-white transition-all"
                             onClick={onFound}
