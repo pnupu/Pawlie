@@ -3,7 +3,6 @@ import {QrScanner} from '@yudiel/react-qr-scanner';
 import toast, { Toaster }from 'react-hot-toast';
 import { ExclamationTriangleIcon } from '@heroicons/react/20/solid'
 
-
 const challenges = {
   1: {
     id: "1",
@@ -19,6 +18,12 @@ const challenges = {
     duration: 300,
     score: [15, 30, 50],
     end: ["6", "7", "8"],
+  },
+  12: {
+    id: "12",
+    title: "Free Challenge",
+    score: 5,
+    end: ["12"],
   }
 }
 
@@ -30,8 +35,6 @@ function QRChallenge({whereToFind, onFound, fromSignIn}) {
   const [intervalId, setIntervalId] = useState(null);
   const [found, setFound] = useState(false);
   const [completed, setCompleted] = useState(false);
-
-  
 
   return (
     <div className='flex flex-col justify-center justify-content'>
@@ -80,6 +83,48 @@ function QRChallenge({whereToFind, onFound, fromSignIn}) {
                 toast("You have completed the challenge, but you did not earn any points, as the time ran out 😩")
                 setCompleted(true);
               }
+
+              if (localStorage.getItem('qrScore') && parseInt(localStorage.getItem('qrScore')) < newScore) {
+                if (localStorage.getItem("user")) {
+                let user = JSON.parse(localStorage.getItem('user'));
+                let data = {
+                    highScores: {
+                        game1: user.highScores.game1,
+                        game2: newScore,
+                        game3: user.highScores.game3,
+                    },
+                }
+
+                fetch('https://server.getpawlie.com/users/'+ user.id +'/score', {
+                    method: 'PUT',
+                    headers: {
+                        'Content-Type': 'application/json'
+                    },
+                    body: JSON.stringify(data)
+                }).then(response => {
+                    if (response.ok) {
+                        return response.json();
+                    } else {
+                        throw new Error('Could not update high score');
+                    }
+                }).then(updatedUser => {
+                    console.log('High score updated:', updatedUser);
+                    // Optionally update the local storage with the new high score
+                    localStorage.setItem('user', JSON.stringify(updatedUser));
+                }).catch(error => {
+                    console.error('Error:', error);
+                });
+              }
+
+
+                localStorage.setItem('qrScore', newScore);
+              }
+
+              if (localStorage.getItem('qrScore') == null) {
+                localStorage.setItem('qrScore', newScore);
+              }
+
+              
               
               setScore(newScore);
               clearInterval(intervalId);
@@ -136,7 +181,10 @@ function QRChallenge({whereToFind, onFound, fromSignIn}) {
 
         <div className='text-lg md:text-xl mx-auto text-dark-secondary text-center mb-8 max-w-xl' style={{fontSize: 20}}>Points: {score}</div>
         {fromSignIn && completed && <button className="text-lg self-center font-medium text-center px-8 py-3 bg-primary hover:bg-primary-hover rounded-full text-white transition-all"
-                            onClick={onFound}
+          onClick={() => {
+            localStorage.setItem('qrScore', score);
+            onFound();
+          }}
                           >
                             Join the Community!
         </button>}

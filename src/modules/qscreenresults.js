@@ -11,7 +11,9 @@ function QScreenResults({localimageurl}) {
     event.preventDefault(); // Prevent the default form submission behavior
     console.log("Form submitted!");
 
-    const score = localStorage.getItem('jumpScore');
+    const score = localStorage.getItem('jumpScore') || 0;
+
+    const qrScore = localStorage.getItem("qrScore") || 0;
 
     const formData = {
       username: name,
@@ -19,7 +21,7 @@ function QScreenResults({localimageurl}) {
       localimageurl: localimageurl,
       highScores: {
         "game1": Number(score),
-        "game2": 0,
+        "game2": Number(qrScore),
         "game3": 0,
       },
     };
