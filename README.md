@@ -1,70 +1,72 @@
-# Getting Started with Create React App
+# Pawlie: Your Personalized Companion
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+## About Pawlie
 
-## Available Scripts
+Pawlie was made in Junction 2023. Pawlie is designed to tackle a significant problem - the lack of good active habits in young individuals, impacting over 200 million people worldwide. Our solution focuses on enhancing cognitive and social skills through a gamified approach, making life happier and healthier.
 
-In the project directory, you can run:
+### Problem We Address
 
-### `npm start`
+More than 200 million people suffer from reduced cognitive and social skills due to a lack of good active habits built during their youth. Our mission is to change this by leveraging the most precious non-renewable resource: our bodies.
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in your browser.
+### Our Solution: Pawlie
 
-The page will reload when you make changes.\
-You may also see any lint errors in the console.
+Pawlie is the world’s first truly personalized companion. It combines Pokemon Go-like activities, where users collect rare items, with continuous activity measurements from smartphones and wearables. This unique blend creates a gamified lifestyle app that fosters deep bonds between users and their Pawlie characters.
 
-### `npm test`
+**Marketing Highlight**: "Pawlie: Your journey to a happier, healthier life starts here!"
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+**Check out our [app video](https://youtu.be/GcU4k0T4i0U) and [test the app](https://www.getpawlie.com/).**
 
-### `npm run build`
+## Technical Aspects
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
+### Under the Hood
 
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
+Pawlie offers a seamless and swift user experience, powered by real-time image processing with GPTs and Dalle. This ensures scalability and a unique experience for each user.
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+### Tech Stack
 
-### `npm run eject`
+- **Development Tools**: Figma, Github
+- **Frontend**: React, HTML, CSS
+- **Backend**: Node.js, TensorFlow, GPT4, Dalle 3 ([backend repo](https://github.com/pnupu/Junction2023-backend))
+- **DevOps**: 46elks, UpCloud
+- **Video Production**: Adobe AE, Canva
 
-**Note: this is a one-way operation. Once you `eject`, you can't go back!**
+### Speciality
 
-If you aren't satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
+In the burgeoning wellness and coaching market, Pawlie stands out by offering a genuinely personal companion with engaging game-like graphics. We prioritize child safety by not including chat features, in light of recent challenges faced by social platforms in this regard.
 
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you're on your own.
+## Participation in Junction 2023
 
-You don't have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn't feel obligated to use this feature. However we understand that this tool wouldn't be useful if you couldn't customize it when you are ready for it.
+Pawlie is proudly developed as part of Junction 2023, a leading hackathon and tech community event. Our team's involvement in this innovative and collaborative environment has been instrumental in shaping and refining Pawlie.
 
-## Learn More
+## Learnings from Junction 2023
 
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
+"Teamwork makes the dream work." At Junction 2023, we exceeded our expectations in graphics, functionality, and user feedback. A heartfelt thank you to everyone involved in this journey.
 
-To learn React, check out the [React documentation](https://reactjs.org/).
 
-### Code Splitting
+## Getting Started
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/code-splitting](https://facebook.github.io/create-react-app/docs/code-splitting)
+### Prerequisites
 
-### Analyzing the Bundle Size
+Ensure you have [Node.js](https://nodejs.org/) installed.
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size](https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size)
+### Installation
 
-### Making a Progressive Web App
+Clone the repository:
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app](https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app)
+```bash
+git clone https://github.com/pnupu/Pawlie.git
+````
 
-### Advanced Configuration
+## Running Pawlie
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/advanced-configuration](https://facebook.github.io/create-react-app/docs/advanced-configuration)
+Navigate to the project directory and start the application:
 
-### Deployment
+```bash
+npm install
+npm start
+```
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/deployment](https://facebook.github.io/create-react-app/docs/deployment)
 
-### `npm run build` fails to minify
+## License
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
+This project is licensed under the [MIT License](LICENSE.md).
